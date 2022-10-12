@@ -1,2 +1,2 @@
-# BeCause
+# CausalBench
 Benchmarking causal discovery methods
