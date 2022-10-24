@@ -1,0 +1,73 @@
+##################
+##              ##
+## PostgresSQL  ##
+##              ## 
+##################
+
+
+Description
+================
+Gentzel et al. (2019) collected a sample of StackOverflow‘s database, and gathered a sample of user-authored queries from their query explorer. 
+Each query was executed against the sample of the database, varying database configuration and monitoring query execution.
+
+
+Files
+================
+postgressql_data.csv		data in comma (,) -separated format
+postgressql_target.csv		edge list of the ground truth graph (no weights)	
+
+
+Metadata
+=================
+11,252 subjects
+3 treatments
+7 outcomes
+10 covariates
+
+
+Variable description
+====================
+Field Name 				Category 			Description
+url 					subject identifier 	Identifies the source of the query
+trial 					trial identifier 	
+index_level 			treatment 			Indicates the level of indexing employed.
+												0: No indexing
+												1: Indexing on primary keys and foreign keys only
+												2: Indexing on primary keys, foreign keys, and other commonly-referenced fields
+page_cost 				treatment 			Indicates the estimated disk access cost provided to the Postgres query planner. 0 corresponds the smallest disk access cost, 3 corresponds the largest disk access cost.
+memory_level 			treatment 			The amount of working memory provided to Postgres, in increasing increments from 0 to 2
+local_written_blocks 	outcome 			The number of blocks written to temporary tables andindices
+temp_written_blocks 	outcome 			The number of blocks written to short-term working memory
+shared_hit_blocks 		outcome 			Number of regular table blocks hit in the cache
+temp_read_blocks 		outcome 			Number of blocks read from temporary tables and indices
+local_read_blocks 		outcome 			Number of blocks read from temporary tables and indices
+runtime 				outcome 			Runtime of the query in milliseconds
+shared_read_blocks 		outcome 			Number of blocks read from regular tables and indices
+rows 					covariate 			The number of rows produced by the query
+creation_year 			covariate 			Year the query was created on the StackOverflow site.
+num_ref_tables 			covariate 			Number of tables referenced by the query
+num_joins 				covariate 			Number of joins employed by the query
+num_group_by 			covariate 			Number of “group by” clauses employed by the query
+queries_by_user 		covariate 			The number of other queries written by the author of this query
+length_chars 			covariate 			Length of the query in characters
+total_ref_rows 			covariate 			Total number of rows of all tables referenced in the query
+local_hit_blocks 		covariate 			Number of temporary table and temporary index blocks hit in the cache
+favorite_count 			covariate 			Number of times another StackOverflow user has marked this query as a favorite
+
+
+Source
+======
+Authors: Amanda Gentzel, Dan Garant, and David Jensen
+Description URL: https://groups.cs.umass.edu/kdl/causal-eval-data/
+Download URL: https://drive.google.com/open?id=132ZXzPCQkPF94H83JI9VBxSmlncWnR1M
+Publication: 
+@inproceedings{gentzel_case_2019,
+	title = {The Case for Evaluating Causal Models Using Interventional Measures and Empirical Data},
+	volume = {32},
+	url = {https://proceedings.neurips.cc/paper/2019/file/a87c11b9100c608b7f8e98cfa316ff7b-Paper.pdf},
+	booktitle = {Advances in Neural Information Processing Systems},
+	publisher = {Curran Associates, Inc.},
+	author = {Gentzel, Amanda and Garant, Dan and Jensen, David},
+	editor = {Wallach, H. and Larochelle, H. and Beygelzimer, A. and Alché-Buc, F. d' and Fox, E. and Garnett, R.},
+	date = {2019}
+}

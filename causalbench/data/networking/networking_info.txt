@@ -1,0 +1,60 @@
+##################
+##              ##
+##  Networking  ##
+##              ## 
+##################
+
+
+Description
+================
+Gentzel et al. (2019) identified a pool of websites using a small web crawl. 
+several web requests were then executed against each site, varying request parameters. Outputs were monitored.
+
+
+Files
+================
+networking_data.csv		data in comma (,) -separated format
+networking_target.csv		edge list of the ground truth graph (no weights)	
+
+
+Metadata
+=================
+2,599 subjects
+3 treatments
+5 outcomes
+1 covariate
+
+
+Variable description
+====================
+Field Name 						Category 			Description
+----------------------------------------------------------------------------------------------------
+url 							subject identifier 	Web address requested
+trial 							trial identifier 	
+mobile_user_agent 				treatment 			Indicates if the site was requested with a mobile user agent
+proxy 							treatment 			Indicates if the site was requested through a proxy server
+compression 					treatment 			Indicates if the request indicates that compression is supported
+html_attrs 						outcome 			Number of HTML attributes in the response
+html_tags 						outcome 			Number of HTML tags in the response
+elapsed 						outcome 			Elapsed time between request and response in seconds
+decompressed_content_length 	outcome 			Length of the response content, in bytes, after decompression
+raw_content_length 				outcome 			Length of the response content, in bytes, before decompression
+server.class 					covariate 			Category of web server issuing the response
+
+
+Source
+======
+Authors: Amanda Gentzel, Dan Garant, and David Jensen
+Description URL: https://groups.cs.umass.edu/kdl/causal-eval-data/
+Download URL: https://drive.google.com/open?id=1UDksvZyEUe9LBZ5NXRnkWzQXeW2TS77c
+Publication: 
+@inproceedings{gentzel_case_2019,
+	title = {The Case for Evaluating Causal Models Using Interventional Measures and Empirical Data},
+	volume = {32},
+	url = {https://proceedings.neurips.cc/paper/2019/file/a87c11b9100c608b7f8e98cfa316ff7b-Paper.pdf},
+	booktitle = {Advances in Neural Information Processing Systems},
+	publisher = {Curran Associates, Inc.},
+	author = {Gentzel, Amanda and Garant, Dan and Jensen, David},
+	editor = {Wallach, H. and Larochelle, H. and Beygelzimer, A. and Alché-Buc, F. d' and Fox, E. and Garnett, R.},
+	date = {2019}
+}

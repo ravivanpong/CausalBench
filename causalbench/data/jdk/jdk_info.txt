@@ -1,0 +1,63 @@
+##################
+##              ##
+##    JDK       ##
+##              ## 
+##################
+
+
+Description
+================
+A sample of Maven-enabled Java projects from GitHub. 
+The projects were compiled and the unit tests were carried out on each project, varying JDK options. The runtime behavior was monitored.
+
+Files
+================
+jdk_data.csv		data in comma (,) -separated format
+jdk_target.csv		edge list of the ground truth graph (no weights)	
+
+
+Metadata
+=================
+473 subjects
+3 treatments
+5 outcomes
+5 covariates
+
+
+Variable description
+====================
+Field Name 				Category 			Description
+----------------------------------------------------------------------------------------------------
+repo_name 				subject identifier 	Name of the GitHub repository containing the experimentation code
+trial 					trial identifier 	
+debug 					treatment 			Indicates whether debug symbols were requested during compilation
+obfuscate 				treatment 			Indicates whether a code obfuscator was run on the final JAR file
+parallelgc 				treatment 			Indicates whether a parallel garbage collection was employed during execution (instead of serial garbage collection)
+num_bytecode_ops 		outcome 			Number of bytecode instructions in the compiled code
+total_unit_test_time 	outcome 			Number of seconds required to execute unit tests
+allocated_bytes 		outcome 			Number of bytes allocated during execution of unit tests
+jar_file_size_bytes 	outcome 			Size of JAR file after compilation (and possibly obfuscation)
+compile_time_ms 		outcome 			Number of milliseconds to compile the source
+source_ncss 			covariate 			Number of non-comment source statements in the source code
+test_classes 			covariate 			Number of Java classes in the unit test source
+test_functions 			covariate 			Number of functions in the unit test source
+test_ncss 				covariate 			Number of non-comment source statements in the test source
+test_javadocs 			covariate 			Number of JavaDoc comments in the test source
+
+
+Source
+======
+Authors: Amanda Gentzel, Dan Garant, and David Jensen
+Description URL: https://groups.cs.umass.edu/kdl/causal-eval-data/
+Download URL: https://drive.google.com/open?id=1qgGSzx7uB_9GLtqTITTr2jWxyrtNWftp
+Publication: 
+@inproceedings{gentzel_case_2019,
+	title = {The Case for Evaluating Causal Models Using Interventional Measures and Empirical Data},
+	volume = {32},
+	url = {https://proceedings.neurips.cc/paper/2019/file/a87c11b9100c608b7f8e98cfa316ff7b-Paper.pdf},
+	booktitle = {Advances in Neural Information Processing Systems},
+	publisher = {Curran Associates, Inc.},
+	author = {Gentzel, Amanda and Garant, Dan and Jensen, David},
+	editor = {Wallach, H. and Larochelle, H. and Beygelzimer, A. and Alché-Buc, F. d' and Fox, E. and Garnett, R.},
+	date = {2019}
+}
