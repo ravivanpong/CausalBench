@@ -47,7 +47,7 @@ def standardize_data(data):
 
 def calc_varsortability(data, true_adj_matrix):
     import numpy as np
-    from metrics import varsortability
+    from causalbench.metrics.varsortability import varsortability
     try:
         if not isinstance(data, np.ndarray):  ## varsortability accepts only np.array datatype
             data_numpy = np.array(data)
