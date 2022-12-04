@@ -14,14 +14,16 @@ path_result = os.path.join(file_dir, 'result')
 sys.path.append(causalbench_dir)
 
 from causalbench.algorithms.gcastle.PC_castle import PC_castle
+from causalbench.algorithms.gcastle.ANM_castle import ANM_castle
 from causalbench.utils.common import *
 
 
 # these datasets are from cdt
-list_dataset = ["dream4-1", "dream4-2",
-                "dream4-3", "dream4-4", "dream4-5", "sachs"]
+# list_dataset = ["dream4-1", "dream4-2",
+#                 "dream4-3", "dream4-4", "dream4-5", "sachs"]
+list_dataset = ["dream4-1"]                
 list_standardize = [False, True]
-list_algo = [PC_castle()]
+list_algo = [PC_castle(), ANM_castle()]
 task_list = combine_multiple_lists([list_algo, list_dataset, list_standardize])
 
 # parameters for algorithem
@@ -32,12 +34,17 @@ dict_algo_param = {
             'parameters': {
                 'variant': 'stable',
             }
+        },
+        'ANM': {
+            'parameters': {
+
+            }
         }
     }
 }
 
 
-def run(alg, dataset_name, standardize, dict_algo_param):
+def run(alg, dataset_name, standardize, param):
     # load data
     data, true_graph, true_adj_matrix = load_data_from_cdt(dataset_name)
     if standardize:
@@ -45,9 +52,9 @@ def run(alg, dataset_name, standardize, dict_algo_param):
     varsort = calc_varsortability(data, true_adj_matrix)
 
     # estimate
-    #print(f"Start to estimate for: \n dataset_name = {dataset_name} \n standardize = {standardize} \n alg = {alg.name}\n")
+    # print(f"Start to estimate for: \n dataset_name = {dataset_name} \n standardize = {standardize} \n alg = {alg.name}\n")
     starttime = time.perf_counter()
-    estimated_adj_matrix = alg.fit(data, dict_algo_param[alg.lib][alg.name])
+    estimated_adj_matrix = alg.fit(data, param[alg.lib][alg.name])
     finishtime = time.perf_counter()
     runtime = round(finishtime - starttime, 2)
 
