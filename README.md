@@ -29,13 +29,15 @@ Benchmarking causal discovery methods
 | DirectLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | BootstrapResult | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | MultiGroupDirectLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
-| CausalEffect | [LiNGAM](https://github.com/cdt15/lingam) | TBD || VARLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD || VARMALiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
+| CausalEffect | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
+| VARLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
+| VARMALiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | LongitudinalLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | VARBootstrapResult | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | VARMABootstrapResult | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | LongitudinalBootstrapResult | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | BottomUpParceLiNGAM | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
-| RCD | [LiNGAM](https://github.com/cdt15/lingam) | TBD || CAMUV | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
+| CAMUV | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | LiNA | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | MDLiNA | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
 | RESIT | [LiNGAM](https://github.com/cdt15/lingam) | TBD |
