@@ -3,16 +3,9 @@ Example for experiment.
 '''
 
 import os
-import sys
 import gc
 import time
 import concurrent.futures
-
-file_dir = os.path.dirname(__file__)
-causalbench_dir = os.path.join(file_dir, '..')
-path_result = os.path.join(file_dir, 'result')
-sys.path.append(causalbench_dir)
-
 from causalbench.algorithms.gcastle.PC_castle import PC_castle
 from causalbench.algorithms.gcastle.ANM_castle import ANM_castle
 from causalbench.utils.common import *
@@ -26,7 +19,7 @@ list_standardize = [False, True]
 list_algo = [PC_castle(), ANM_castle()]
 task_list = combine_multiple_lists([list_algo, list_dataset, list_standardize])
 
-# parameters for algorithem
+# parameters for algorithm
 # could import as json file in the future
 dict_algo_param = {
     'castle': {
@@ -42,6 +35,11 @@ dict_algo_param = {
         }
     }
 }
+
+file_dir = os.path.dirname(__file__)
+# causalbench_dir = os.path.join(file_dir, '..')
+path_result = os.path.join(file_dir, 'result')
+# sys.path.append(causalbench_dir)
 
 
 def run(alg, dataset_name, standardize, param):

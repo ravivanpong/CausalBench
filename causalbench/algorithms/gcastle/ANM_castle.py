@@ -1,9 +1,9 @@
-from .model import Model
+from .base import BaseCastle
 from castle.algorithms import ANMNonlinear
 import numpy as np
 
 
-class ANM_castle(Model):
+class ANM_castle(BaseCastle):
     name = 'ANM'
     lib = 'castle'
 

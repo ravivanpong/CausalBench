@@ -1,9 +1,9 @@
-from .model import Model
+from .base import BaseCastle
 from castle.algorithms import PC
 import numpy as np
 
 
-class PC_castle(Model):
+class PC_castle(BaseCastle):
     name = 'PC'
     lib = 'castle'
 
