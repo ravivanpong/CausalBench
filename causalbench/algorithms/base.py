@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class BaseCastle(ABC):
-    """Base class for all gCastle algorithms."""
+class Base(ABC):
+    """Base class for all algorithms."""
 
     def __init__(self):
         pass

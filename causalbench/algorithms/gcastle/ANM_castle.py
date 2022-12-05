@@ -1,9 +1,9 @@
-from .base import BaseCastle
+from causalbench.algorithms.base import Base
 from castle.algorithms import ANMNonlinear
 import numpy as np
 
 
-class ANM_castle(BaseCastle):
+class ANM_castle(Base):
     name = 'ANM'
     lib = 'castle'
 

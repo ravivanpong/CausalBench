@@ -1,9 +1,9 @@
-from .base import BaseCastle
+from causalbench.algorithms.base import Base
 from castle.algorithms import PC
 import numpy as np
 
 
-class PC_castle(BaseCastle):
+class PC_castle(Base):
     name = 'PC'
     lib = 'castle'
 
