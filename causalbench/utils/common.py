@@ -1,96 +1,144 @@
+"""
+This file provides help functions for causal discovery.
+"""
 
-'''
-Generate all possible combination of params from two lists
-Example:
-param_list_1 = ['a', 'b']
-param_list_2 = [True, False]
-combine_two_lists(param_list_1, param_list_2)
-The result will be [['a', True], ['a', False], ['b', True], ['b', False] ]
-'''
+from csv import DictWriter
+import logging
+import os.path
+import numpy as np
+from cdt.data import load_dataset
+from cdt.metrics import SHD, SHD_CPDAG, precision_recall
+from networkx import to_numpy_matrix
+from sklearn.preprocessing import StandardScaler
+from causalbench.metrics.varsortability import varsortability
+
+
 def combine_two_lists(list_1, list_2):
+    """
+    Generate all possible combination of params from two lists
+    Example:
+    param_list_1 = ['a', 'b']
+    param_list_2 = [True, False]
+    combine_two_lists(param_list_1, param_list_2)
+    The result will be [['a', True], ['a', False], ['b', True], ['b', False] ]
+    """
     if list_1 == []:
         return list_2
     if list_2 == []:
-        return list_1    
+        return list_1
     result_array = []
     for i in list_1:
         for j in list_2:
             if isinstance(i, list):
                 temp = i.copy()
-                temp.append(j)                
+                temp.append(j)
                 result_array.append(temp)
             else:
                 result_array.append([i, j])
     return result_array
 
-# generate all possible combination of params from multiple lists.
+
 def combine_multiple_lists(lists):
-    
+    """Generate all possible combination of params from multiple lists."""
     if len(lists) < 2:
         return lists
-    result_array = []    
-    for index in range(len(lists)):
-        result_array = combine_two_lists(result_array, lists[index])
-    return result_array  
+    result_array = []
+    for sublist in lists:
+        result_array = combine_two_lists(result_array, sublist)
+    return result_array
+
 
 def load_data_from_cdt(dataset_name):
-    from cdt.data import load_dataset
-    from networkx import to_numpy_matrix
+    """Load dataset from causal discovery toolbox
+
+    Args:
+        dataset_name (string): name of the dataset
+
+    Returns:
+         tuple: (pandas.DataFrame, pandas.DataFrame or networkx.DiGraph, numpy matrix)
+    """
+
     data, true_graph = load_dataset(dataset_name)
     true_adj_matrix = to_numpy_matrix(true_graph)
     return data, true_graph, true_adj_matrix
 
+
 def standardize_data(data):
-    from sklearn.preprocessing import StandardScaler
+    """Standardize dataset"""
     scaler = StandardScaler(with_mean=True, with_std=True)
     return scaler.fit_transform(data)
 
+
 def calc_varsortability(data, true_adj_matrix):
-    import numpy as np
-    from causalbench.metrics.varsortability import varsortability
+    """_summary_
+
+    Args:
+        data (_type_): _description_
+        true_adj_matrix (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    data_numpy = (
+        data if isinstance(data, np.ndarray) else np.array(data)
+    )  # varsortability accepts only np.array datatype
+
     try:
-        if not isinstance(data, np.ndarray):  ## varsortability accepts only np.array datatype
-            data_numpy = np.array(data)
-        else:
-            data_numpy = data
         varsort = varsortability(data_numpy, np.asarray(true_adj_matrix))
-    except:
-        varsort = np.nan
-    return varsort
+    except TypeError as err:
+        logging.exception(err)
+        return np.nan
+    else:
+        return varsort
+
 
 def evaluate_cdt_metrics(estimated_adj_matrix, true_graph):
-    import numpy as np
-    from cdt.metrics import SHD, SHD_CPDAG, precision_recall
+    """_summary_
+
+    Args:
+        estimated_adj_matrix (_type_): _description_
+        true_graph (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+
     shd = shd_cpdag = auc = curve = np.nan  ## Initialize metrics
 
     if estimated_adj_matrix.size != 0:
         try:
             shd = SHD(true_graph, estimated_adj_matrix, double_for_anticausal=True)
-        except Exception as e:
-            print(e)
+        except TypeError as err:
+            logging.exception(err)
 
         try:
             shd_cpdag = SHD_CPDAG(true_graph, estimated_adj_matrix)
-        except Exception as e:
-            print(e)
+        except TypeError as err:
+            logging.exception(err)
 
         try:
             auc, curve = precision_recall(true_graph, estimated_adj_matrix)
-        except Exception as e:
-            print(e)
+        except TypeError as err:
+            logging.exception(err)
 
-    return shd, shd_cpdag, auc, curve  
+    return shd, shd_cpdag, auc, curve
+
 
 def gen_output_file(path_result, file_name, dict_result):
-    import os.path
-    from csv import DictWriter
+    """_summary_
+
+    Args:
+        path_result (_type_): _description_
+        file_name (_type_): _description_
+        dict_result (_type_): _description_
+    """
     outfile = os.path.join(path_result, file_name)
     if os.path.exists(outfile):
         with open(outfile, "a", encoding="utf-8") as file:
-            writer = DictWriter(file, dict_result.keys(), delimiter=';')
+            writer = DictWriter(file, dict_result.keys(), delimiter=";")
             writer.writerow(dict_result)
     else:
         with open(outfile, "w", encoding="utf-8") as file:
-            writer = DictWriter(file, dict_result.keys(), delimiter=';')
+            writer = DictWriter(file, dict_result.keys(), delimiter=";")
             writer.writeheader()
-            writer.writerow(dict_result) 
+            writer.writerow(dict_result)

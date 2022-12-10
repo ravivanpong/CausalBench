@@ -1,21 +1,27 @@
-from causalbench.algorithms.base import Base
-from castle.algorithms import ANMNonlinear
+"""
+This file adapted ANM from gCastle.
+"""
+import logging
 import numpy as np
+from castle.algorithms import ANMNonlinear
+from causalbench.algorithms.base import Base
 
 
-class ANM_castle(Base):
-    name = 'ANM'
-    lib = 'castle'
+class ANMCastle(ANMNonlinear, Base):
+    """
+    ANMCastle uses ANMNonliner from gCastle.
+    It's subclass of ANMNonliner and Base.
+    """
 
-    def fit(self, data, parameters):
-        default_param = {'alpha': 0.05}
-        
-        alpha = parameters['alpha'] if 'alpha' in parameters else default_param['alpha']
-        
+    name = "ANM"
+    lib = "gCastle"
+
+    def fit(self, data):
+
         try:
-            anm = ANMNonlinear( alpha=alpha)
-            anm.learn(data)
-            return np.asarray(anm.causal_matrix)
-        except Exception as e:
-            print(e)
+            self.learn(data)
+        except TypeError as err:
+            logging.exception(err)
             return np.array([])
+        else:
+            return np.asarray(self.causal_matrix)

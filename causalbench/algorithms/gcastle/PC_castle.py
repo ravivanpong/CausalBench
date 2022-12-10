@@ -1,28 +1,27 @@
-from causalbench.algorithms.base import Base
-from castle.algorithms import PC
+"""
+This file adapted PC from gCastle.
+"""
+import logging
 import numpy as np
+from castle.algorithms import PC
+from causalbench.algorithms.base import Base
 
 
-class PC_castle(Base):
-    name = 'PC'
-    lib = 'castle'
+class PCCastle(PC, Base):
+    """
+    PCCastle uses PC from gCastle.
+    It's subclass of PC and Base.
+    """
 
-    def fit(self, data, parameters):
-        default_param = {
-            'variant': 'original',
-            'alpha': 0.05,
-            'ci_test': 'fisherz',
-            'priori_knowledge': None
-        }
-        variant = parameters['variant'] if 'variant' in parameters else default_param['variant']
-        alpha = parameters['alpha'] if 'alpha' in parameters else default_param['alpha']
-        ci_test = parameters['ci_test'] if 'ci_test' in parameters else default_param['ci_test']
-        priori_knowledge = parameters['priori_knowledge'] if 'priori_knowledge' in parameters else default_param['priori_knowledge']
+    name = "PC"
+    lib = "gCastle"
+
+    def fit(self, data):
+
         try:
-            pc = PC(variant=variant, alpha=alpha, ci_test=ci_test,
-                    priori_knowledge=priori_knowledge)
-            pc.learn(data)
-            return np.asarray(pc.causal_matrix)
-        except Exception as e:
-            print(e)
+            self.learn(data)
+        except TypeError as err:
+            logging.exception(err)
             return np.array([])
+        else:
+            return np.asarray(self.causal_matrix)
