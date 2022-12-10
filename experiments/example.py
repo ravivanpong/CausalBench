@@ -4,6 +4,8 @@ Example experiment.
 import os
 import gc
 import time
+import logging
+
 import concurrent.futures
 import causalbench.utils.common as util
 
@@ -33,7 +35,14 @@ task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardi
 # }
 
 file_dir = os.path.dirname(__file__)
+
 path_result = os.path.join(file_dir, "result")
+try:
+    os.mkdir(path_result)
+except FileExistsError:
+    logging.info("result dir already exists")
+else:
+    logging.info("result dir created.")
 
 
 def run(alg, dataset_name, standardize):
@@ -47,8 +56,7 @@ def run(alg, dataset_name, standardize):
     """
     # load data
     data, true_graph, true_adj_matrix = util.load_data_from_cdt(dataset_name)
-    if standardize:
-        data = util.standardize_data(data)
+    data = util.standardize_data(data) if standardize else data
     varsort = util.calc_varsortability(data, true_adj_matrix)
 
     # estimate
@@ -90,6 +98,16 @@ def main():
             executor.submit(run, task[0], task[1], task[2])
     finish = time.perf_counter()
     print(f"benchmarking finished in {round(finish - start, 2)} second(s)")
+
+
+# no multi-threading
+# def main():
+#     """_summary_"""
+#     start = time.perf_counter()
+#     for task in task_list:
+#         run(task[0], task[1], task[2])
+#     finish = time.perf_counter()
+#     print(f"benchmarking finished in {round(finish - start, 2)} second(s)")
 
 
 if __name__ == "__main__":
