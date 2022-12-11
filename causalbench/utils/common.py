@@ -8,7 +8,7 @@ import os.path
 import numpy as np
 from cdt.data import load_dataset
 from cdt.metrics import SHD, SHD_CPDAG, precision_recall
-from networkx import to_numpy_matrix
+from networkx import to_numpy_array
 from sklearn.preprocessing import StandardScaler
 from causalbench.metrics.varsortability import varsortability
 
@@ -59,7 +59,7 @@ def load_data_from_cdt(dataset_name):
     """
 
     data, true_graph = load_dataset(dataset_name)
-    true_adj_matrix = to_numpy_matrix(true_graph)
+    true_adj_matrix = np.asmatrix(to_numpy_array(true_graph))
     return data, true_graph, true_adj_matrix
 
 

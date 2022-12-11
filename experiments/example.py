@@ -9,17 +9,17 @@ import logging
 import concurrent.futures
 import causalbench.utils.common as util
 
-from causalbench.algorithms.gcastle.anm_castle import ANMCastle
+# from causalbench.algorithms.gcastle.anm_castle import ANMCastle
 from causalbench.algorithms.gcastle.pc_castle import PCCastle
 
 
 # these datasets are from cdt
 # list_dataset = ["dream4-1", "dream4-2",
 #                 "dream4-3", "dream4-4", "dream4-5", "sachs"]
-list_dataset = ["dream4-1"]
-list_standardize = [False, True]
-list_algo = [PCCastle(variant="stable"), ANMCastle()]
-task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardize])
+# list_dataset = ["dream4-1"]
+# list_standardize = [False, True]
+# list_algo = [PCCastle(variant="stable")]
+# task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardize])
 
 # parameters for algorithm
 # could import as json file in the future
@@ -34,18 +34,18 @@ task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardi
 #     }
 # }
 
-file_dir = os.path.dirname(__file__)
+# file_dir = os.path.dirname(__file__)
 
-path_result = os.path.join(file_dir, "result")
-try:
-    os.mkdir(path_result)
-except FileExistsError:
-    logging.info("result dir already exists")
-else:
-    logging.info("result dir created.")
+# path_result = os.path.join(file_dir, "result")
+# try:
+#     os.mkdir(path_result)
+# except FileExistsError:
+#     logging.info("result dir already exists")
+# else:
+#     logging.info("result dir created.")
 
 
-def run(alg, dataset_name, standardize):
+def run(alg, dataset_name, standardize, path_result):
     """_summary_
 
     Args:
@@ -92,10 +92,24 @@ def run(alg, dataset_name, standardize):
 
 def main():
     """_summary_"""
+    list_dataset = ["dream4-1"]
+    list_standardize = [False, True]
+    list_algo = [PCCastle(variant="stable")]
+    task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardize])
+
+    file_dir = os.path.dirname(__file__)
+    path_result = os.path.join(file_dir, "result")
+    try:
+        os.mkdir(path_result)
+    except FileExistsError:
+        logging.info("result dir already exists")
+    else:
+        logging.info("result dir created.")
+
     start = time.perf_counter()
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for task in task_list:
-            executor.submit(run, task[0], task[1], task[2])
+            executor.submit(run, task[0], task[1], task[2], path_result)
     finish = time.perf_counter()
     print(f"benchmarking finished in {round(finish - start, 2)} second(s)")
 
