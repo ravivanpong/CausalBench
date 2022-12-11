@@ -13,6 +13,7 @@ import causalbench.utils.common as util
 from causalbench.algorithms.gcastle.pc_castle import PCCastle
 from causalbench.algorithms.lingam.rcd_lingam import RCDLingam
 
+# from causalbench.algorithms.lingam.directlingam_lingam import DirectLiNGAMLingam
 # from causalbench.algorithms.gcastle.directlingam_castle import DirectLiNGAMCastle
 
 
@@ -67,6 +68,7 @@ def run(alg, dataset_name, standardize, path_result):
         "standardized": standardize,
         "varsortability": varsort,
         "model_name": alg.name,
+        "library_name": alg.lib,
         "SHD": float(shd),
         "SHD_CPAG": float(shd_cpdag),
         "AOC": 1 - auc,
