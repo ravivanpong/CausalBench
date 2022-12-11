@@ -5,6 +5,7 @@ Returns:
 """
 import logging
 import numpy as np
+import pandas as pd
 from castle.algorithms import DirectLiNGAM
 from causalbench.algorithms.base import Base
 
@@ -33,14 +34,17 @@ class DirectLiNGAMCastle(Base):
         lingam_instance = DirectLiNGAM(
             prior_knowledge=prior_knowledge, measure=measure, thresh=thresh
         )
+        if isinstance(data, pd.DataFrame):
+            data = data.to_numpy()
 
         try:
-            logging.info("entered try block")
             lingam_instance.learn(data)
-            logging.info("finished learn")
 
         except TypeError as err:
             logging.exception(err)
+            return np.array([])
+        except ValueError as verr:
+            logging.exception(verr)
             return np.array([])
         else:
             self.causal_matrix = lingam_instance.causal_matrix
