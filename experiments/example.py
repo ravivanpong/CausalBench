@@ -11,6 +11,7 @@ import causalbench.utils.common as util
 
 # from causalbench.algorithms.gcastle.anm_castle import ANMCastle
 from causalbench.algorithms.gcastle.pc_castle import PCCastle
+from causalbench.algorithms.lingam.rcd_lingam import RCDLingam
 
 
 # these datasets are from cdt
@@ -94,7 +95,7 @@ def main():
     """_summary_"""
     list_dataset = ["dream4-1"]
     list_standardize = [False, True]
-    list_algo = [PCCastle(variant="stable")]
+    list_algo = [PCCastle(variant="stable"), RCDLingam()]
     task_list = util.combine_multiple_lists([list_algo, list_dataset, list_standardize])
 
     file_dir = os.path.dirname(__file__)
