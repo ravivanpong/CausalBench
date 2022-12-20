@@ -139,3 +139,4 @@ dmypy.json
 
 .DS_Store
 .vscode/
+simple_test.py
