@@ -1,6 +1,7 @@
 import time
 import logging
 import os
+import pandas as pd
 from csv import DictWriter
 from castle.metrics import MetricsDAG
 from castle.datasets import IIDSimulation, DAG
@@ -38,6 +39,15 @@ def load_data():
     true_causal_matrix, X = dataset.B, dataset.X
     print(f"type of true_causal_matrix, X: {type(true_causal_matrix), type(X)}")
     return true_causal_matrix, X
+
+
+def load_alarm_data(path_to_dataset):
+    true_causal_matrix = pd.read_fwf(
+        "/Users/huigong/ba-thesis/CausalBench/experiments/data/alarm_data/Alarm1_graph.txt",
+        header=None,
+    )
+    X = pd.read_fwf(path_to_dataset, header=None)
+    return true_causal_matrix.to_numpy(), X.to_numpy()
 
 
 def run(true_causal_matrix, X, algo_name: str, path_result):
@@ -99,6 +109,8 @@ def run(true_causal_matrix, X, algo_name: str, path_result):
     algo.learn(X)
     finishtime = time.perf_counter()
     runtime = round(finishtime - starttime, 2)
+    print(algo.causal_matrix.shape)
+    print(true_causal_matrix.shape)
 
     # plot predict_dag and true_dag
     # GraphDAG(pc.causal_matrix, true_causal_matrix, "result")
@@ -107,7 +119,7 @@ def run(true_causal_matrix, X, algo_name: str, path_result):
     mt = MetricsDAG(algo.causal_matrix, true_causal_matrix)
 
     dict_result = {
-        "dataset_name": "random simulated",
+        "dataset_name": "alarm",
         "N_variables": X.shape[1],
         "N_obs": X.shape[0],
         "model_name": algo_name.lower(),
@@ -131,7 +143,10 @@ def main():
     # algorithms to run (cpu only)
     algo_name_list = ["pc", "icalingam", "DirectLiNGAM"]
     # load data
-    true_causal_matrix, X = load_data()
+    true_causal_matrix, X = load_alarm_data(
+        "/Users/huigong/ba-thesis/CausalBench/experiments/data/alarm_data/Alarm1_s500_v1.txt"
+    )
+    print("loaded alarm")
     # set output file path
     file_dir = os.path.dirname(__file__)
     path_result = os.path.join(file_dir, "result")
