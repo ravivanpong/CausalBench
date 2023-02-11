@@ -14,7 +14,7 @@ def load_sachs():
         - "true_matrix": true graph of sachs data set in form of Numpy NDArray
         - "X": sachs dataset in form of Numpy NDArray. 11 variables x 7466 samples.
         - "var_num": number of variables
-        - "sample_num" number of samples
+        - "sample_num": number of samples
         - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
