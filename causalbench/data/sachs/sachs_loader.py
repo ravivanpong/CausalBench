@@ -7,6 +7,16 @@ from causalbench.metrics.varsortability import varsortability
 
 
 def load_sachs():
+    """Load sachs data set from local zip file.
+
+    Returns:
+        result: dictionary with properties of:
+        - "true_matrix": true graph of sachs data set in form of Numpy NDArray
+        - "X": sachs dataset in form of Numpy NDArray. 11 variables x 7466 samples.
+        - "var_num": number of variables
+        - "sample_num" number of samples
+        - "varsortability": measures how well the variance order reflects the causal order.
+    """
     # read from zip file
     sachs_target_bytes = None
     sachs_data_bytes = None
