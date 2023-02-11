@@ -12,7 +12,7 @@ def load_jdk():
     Returns:
         result: dictionary with properties of:
         - "true_matrix": true graph of jdk data set in form of Numpy NDArray
-        - "X": jdk dataset in form of Numpy NDArray. 11 variables x 7466 samples.
+        - "X": jdk dataset in form of Numpy NDArray.
         - "var_num": number of variables
         - "sample_num": number of samples
         - "varsortability": measures how well the variance order reflects the causal order.

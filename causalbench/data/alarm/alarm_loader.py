@@ -18,7 +18,7 @@ def load_alarm(index=1, sample_num=500, version=1):
     Returns:
         result: dictionary with properties of:
         - "true_matrix": true graph of alarm data set in form of Numpy NDArray
-        - "X": alarm dataset in form of Numpy NDArray. 11 variables x 7466 samples.
+        - "X": alarm dataset in form of Numpy NDArray.
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of the dataset
