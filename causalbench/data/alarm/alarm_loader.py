@@ -25,10 +25,12 @@ def load_alarm(index=1, sample_num=500, version=1):
         - "varsortability": measures how well the variance order reflects the causal order.
     """
     if sample_num not in [500, 1000, 5000]:
-        raise ValueError("Sample number must be one of these values: [500, 1000, 5000]")
+        raise ValueError(
+            f"Sample number must be one of these values: [500, 1000, 5000]. Instead, {sample_num} was given."
+        )
     if version not in list(range(1, 11)):
         raise ValueError(
-            "Version must be one of these values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+            f"Version must be one of these values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. Instead, {version} was given."
         )
 
     # read from zip file
@@ -40,7 +42,9 @@ def load_alarm(index=1, sample_num=500, version=1):
     elif index in [3, 5, 10]:
         zipfile_name = "alarm" + str(index) + "_data"
     else:
-        raise ValueError("Index must be one of these values [1, 3, 5, 10]")
+        raise ValueError(
+            f"Index must be one of these values [1, 3, 5, 10]. Instead, {index} was given."
+        )
 
     dirname = os.path.dirname(os.path.realpath(__file__))
     with ZipFile(f"{dirname}/{zipfile_name}.zip") as zip_archive:

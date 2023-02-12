@@ -1,11 +1,124 @@
 import time
 import logging
 import os
-import pandas as pd
 from csv import DictWriter
 from castle.metrics import MetricsDAG
-from castle.datasets import IIDSimulation, DAG
 import concurrent.futures
+from causalbench.utils.helper import combine_multiple_lists
+
+###################### Edit blow area to set up experiment. ##############################
+# step 1: set dataset and it's parameters
+dataset_list = {
+    "alarm": {"index": None, "sample_num": None, "version": None},
+    # "dream4": {"version": None},
+    # "jdk": {},
+    # "postgres": {},
+    "sachs": {},
+}
+# step 2:  set algorithm and it's parameters
+algo_param_dict = {
+    "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
+    "ges": {"criterion": None, "method": None, "k": None, "N": None},
+}
+# step 3: set output file name
+OUTPUT_FILE_NAME = "gcastle_experiment"
+######################  Edit above area to set up experiment. #############################
+
+
+def load_datasest(dataset_name: str):
+    if dataset_name.lower() == "alarm":
+        from causalbench.data.alarm.alarm_loader import load_alarm
+
+        kwargs = dataset_list["alarm"]
+
+        return load_alarm(**{k: v for k, v in kwargs.items() if v is not None})
+    elif dataset_name.lower() == "dream4":
+        from causalbench.data.dream4.dream4_loader import load_dream4
+
+        kwargs = dataset_list["dream4"]
+
+        return load_dream4(**{k: v for k, v in kwargs.items() if v is not None})
+    elif dataset_name.lower() == "jdk":
+        from causalbench.data.jdk.jdk_loader import load_jdk
+
+        return load_jdk()
+    elif dataset_name.lower() == "postgres":
+        from causalbench.data.postgres.postgres_loader import load_postgres
+
+        return load_postgres()
+    elif dataset_name.lower() == "sachs":
+        from causalbench.data.sachs.sachs_loader import load_sachs
+
+        return load_sachs()
+    else:
+        raise ValueError(f"Data set: {dataset_name} not found.")
+
+
+def init_algo_from_gcastle(algo_name: str):
+    """_summary_
+
+    Args:
+        algo_name (str): _description_
+
+    Raises:
+        ValueError: _description_ß
+
+    Returns:
+        _type_: _description_
+    """
+    if algo_name.lower() == "pc":
+        from castle.algorithms import PC
+
+        kwargs = algo_param_dict["pc"]
+
+        return PC(**{k: v for k, v in kwargs.items() if v is not None})
+    elif algo_name.lower() == "ges":
+        from castle.algorithms import GES
+
+        kwargs = algo_param_dict["ges"]
+
+        return GES(**{k: v for k, v in kwargs.items() if v is not None})
+    # elif algo_name.lower() == "icalingam":
+    #     from castle.algorithms import ICALiNGAM
+
+    #     return ICALiNGAM()
+    # elif algo_name.lower() == "directlingam":
+    #     from castle.algorithms import DirectLiNGAM
+
+    #     return DirectLiNGAM()
+    # elif algo_name.lower() == "anm": #pairwise
+    #     from castle.algorithms import ANMNonlinear
+    #     return ANMNonlinear()
+    # These algorithms need GPU
+    # elif algo.lower() == "golem":
+    #     from castle.algorithms import GOLEM
+    #     return GOLEM()
+    # elif algo.lower() == "grandag":
+    #     from castle.algorithms import GraNDAG
+    #     return GraNDAG()
+    # elif algo_name.lower() == "notears":
+    #     from castle.algorithms import Notears
+    #     return Notears()
+    # elif algo_name.lower() == "notearslowrank":
+    #     from castle.algorithms import NotearsLowRank
+    #     return NotearsLowRank()
+    # elif algo_name.lower() == "notearsnonlinear": #unclear
+    #     from castle.algorithms import NotearsNonlinear
+    #     return NotearsNonlinear()
+    # elif algo_name.lower() == "corl":
+    #     from castle.algorithms import CORL
+    #     return CORL()
+    # elif algo_name.lower() == "rl":
+    #     from castle.algorithms import RL
+    #     return RL()
+    # elif algo.lower() == "gae":
+    #     from castle.algorithms import GAE
+    #     return GAE()
+    # elif algo.lower() == "pnl": # pairwise?
+    #     from castle.algorithms import PNL
+    #     return PNL()
+    else:
+        raise ValueError("Unknown algorithm.")
 
 
 def gen_output_file(path_result, file_name, dict_result):
@@ -28,98 +141,28 @@ def gen_output_file(path_result, file_name, dict_result):
             writer.writerow(dict_result)
 
 
-def load_data():
-    # data simulation, simulate true causal dag and train_data.
-    weighted_random_dag = DAG.erdos_renyi(
-        n_nodes=10, n_edges=10, weight_range=(0.5, 2.0), seed=1
-    )
-    dataset = IIDSimulation(
-        W=weighted_random_dag, n=1000, method="linear", sem_type="gauss"
-    )
-    true_causal_matrix, X = dataset.B, dataset.X
-    print(f"type of true_causal_matrix, X: {type(true_causal_matrix), type(X)}")
-    return true_causal_matrix, X
-
-
-def load_alarm_data(path_to_dataset):
-    true_causal_matrix = pd.read_fwf(
-        "/Users/huigong/ba-thesis/CausalBench/experiments/data/alarm_data/Alarm1_graph.txt",
-        header=None,
-    )
-    X = pd.read_fwf(path_to_dataset, header=None)
-    return true_causal_matrix.to_numpy(), X.to_numpy()
-
-
-def run(true_causal_matrix, X, algo_name: str, path_result):
-    if algo_name.lower() == "pc":
-        from castle.algorithms import PC
-
-        algo = PC()
-    elif algo_name.lower() == "icalingam":
-        from castle.algorithms import ICALiNGAM
-
-        algo = ICALiNGAM()
-    elif algo_name.lower() == "directlingam":
-        from castle.algorithms import DirectLiNGAM
-
-        algo = DirectLiNGAM()
-
-    # elif algo_name.lower() == "ges":
-    #     from castle.algorithms import GES
-
-    #     algo = GES()
-    # elif algo_name.lower() == "anm": #pairwise
-    #     from castle.algorithms import ANMNonlinear
-    #     algo = ANMNonlinear()
-    # These algorithms need GPU
-    # elif algo.lower() == "golem":
-    #     from castle.algorithms import GOLEM
-    #     algo = GOLEM()
-    # elif algo.lower() == "grandag":
-    #     from castle.algorithms import GraNDAG
-    #     algo = GraNDAG()
-    # elif algo_name.lower() == "notears":
-    #     from castle.algorithms import Notears
-    #     algo = Notears()
-    # elif algo_name.lower() == "notearslowrank":
-    #     from castle.algorithms import NotearsLowRank
-    #     algo = NotearsLowRank()
-    # elif algo_name.lower() == "notearsnonlinear": #unclear
-    #     from castle.algorithms import NotearsNonlinear
-    #     algo = NotearsNonlinear()
-    # elif algo_name.lower() == "corl":
-    #     from castle.algorithms import CORL
-    #     algo = CORL()
-    # elif algo_name.lower() == "rl":
-    #     from castle.algorithms import RL
-    #     algo = RL()
-    # elif algo.lower() == "gae":
-    #     from castle.algorithms import GAE
-    #     algo = GAE()
-    # elif algo.lower() == "pnl": # pairwise?
-    #     from castle.algorithms import PNL
-    #     algo = PNL()
-    else:
-        raise ValueError("Unknown algorithm.==========")
-
-    logging.info(f"import algorithm corresponding to {algo_name} complete!")
-
+def run(dataset_name: str, algo_name: str, path_result):
+    # load data set
+    dataset = load_datasest(dataset_name)
+    true_causal_matrix = dataset["true_matrix"]
+    X = dataset["X"]
+    logging.info("%s loaded", dataset_name)
+    # init algorithm
+    algo = init_algo_from_gcastle(algo_name)
+    logging.info("%s algorithm initiated.", algo_name)
     # structure learning
     starttime = time.perf_counter()
     algo.learn(X)
     finishtime = time.perf_counter()
+    logging.info("%s on %s done.", algo_name, dataset_name)
     runtime = round(finishtime - starttime, 2)
-    print(algo.causal_matrix.shape)
-    print(true_causal_matrix.shape)
-
-    # plot predict_dag and true_dag
-    # GraphDAG(pc.causal_matrix, true_causal_matrix, "result")
 
     # calculate metrics
     mt = MetricsDAG(algo.causal_matrix, true_causal_matrix)
 
     dict_result = {
-        "dataset_name": "alarm",
+        "dataset_name": dataset["name"],
+        "varsortability": dataset["varsortability"],
         "N_variables": X.shape[1],
         "N_obs": X.shape[0],
         "model_name": algo_name.lower(),
@@ -136,17 +179,12 @@ def run(true_causal_matrix, X, algo_name: str, path_result):
         "runtime_second": runtime,
         "experiment_time": time.ctime(),
     }
-    gen_output_file(path_result, "gcastle_example_result.csv", dict_result)
+    gen_output_file(path_result, f"{OUTPUT_FILE_NAME}.csv", dict_result)
 
 
 def main():
-    # algorithms to run (cpu only)
-    algo_name_list = ["pc", "icalingam", "DirectLiNGAM"]
-    # load data
-    true_causal_matrix, X = load_alarm_data(
-        "/Users/huigong/ba-thesis/CausalBench/experiments/data/alarm_data/Alarm1_s500_v1.txt"
-    )
-    print("loaded alarm")
+    algo_name_list = list(algo_param_dict.keys())
+    dataset_name_list = list(dataset_list.keys())
     # set output file path
     file_dir = os.path.dirname(__file__)
     path_result = os.path.join(file_dir, "result")
@@ -157,9 +195,10 @@ def main():
     else:
         logging.info("result dir created.")
 
+    task_list = combine_multiple_lists([dataset_name_list, algo_name_list])
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        for algo_name in algo_name_list:
-            executor.submit(run, true_causal_matrix, X, algo_name, path_result)
+        for task in task_list:
+            executor.submit(run, task[0], task[1], path_result)
 
 
 if __name__ == "__main__":
