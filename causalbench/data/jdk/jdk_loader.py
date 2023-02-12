@@ -15,6 +15,7 @@ def load_jdk():
         - "X": jdk dataset in form of Numpy NDArray.
         - "var_num": number of variables
         - "sample_num": number of samples
+        - "name": name of data set
         - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
@@ -56,6 +57,7 @@ def load_jdk():
     result["X"] = data
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
+    result["name"] = "jdk"
     result["varsortability"] = varsortability(data, true_matrix)
     return result
 
