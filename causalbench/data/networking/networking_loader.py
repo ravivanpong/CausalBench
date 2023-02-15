@@ -29,6 +29,15 @@ def load_networking():
     true_graph_df = pd.read_csv(BytesIO(networking_target_bytes), sep=";")
     data_df = pd.read_csv(BytesIO(networking_data_bytes))
     data_df = data_df.iloc[:, 1:18]  # slice out first column which is unnamed
+    data_df = data_df.drop(
+        columns=["site", "url", "content_type", "server"]
+    )  # drop string valued and not used variable
+    dummy_time = pd.get_dummies(data_df["time"])
+    dummy_server_class = pd.get_dummies(data_df["server.class"])
+    data_df = pd.concat([data_df, dummy_time, dummy_server_class], axis=1)
+
+    data_df = data_df.drop(columns=["time", "server.class"])
+    data_df.replace({False: 0, True: 1}, inplace=True)
 
     # build true graph matrix
     nodes = list(data_df.columns)
@@ -49,8 +58,6 @@ def load_networking():
         true_matrix[node_index_map[edge[0]]][node_index_map[edge[1]]] = 1
 
     data = data_df.to_numpy()
-    print(true_matrix)
-    print(data.shape)
 
     result = {}
     result["true_matrix"] = true_matrix
@@ -58,12 +65,11 @@ def load_networking():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "networking"
-    print("start to calc varsortability...")
     result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
-networking = load_networking()
-print(networking["var_num"])
-print(networking["varsortability"])
-print(networking["sample_num"])
+# networking = load_networking()
+# print(networking["var_num"])
+# print(networking["varsortability"])
+# print(networking["sample_num"])

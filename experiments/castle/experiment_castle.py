@@ -13,7 +13,8 @@ dataset_list = {
     # "dream4": {"version": None},
     # "jdk": {},
     # "postgres": {},
-    "sachs": {},
+    # "sachs": {},
+    # "networking": {}
 }
 # step 2:  set algorithm and it's parameters
 algo_param_dict = {
@@ -21,7 +22,7 @@ algo_param_dict = {
     "ges": {"criterion": None, "method": None, "k": None, "N": None},
 }
 # step 3: set output file name
-OUTPUT_FILE_NAME = "gcastle_experiment"
+OUTPUT_FILE_NAME = "alarm_pc_ges"
 ######################  Edit above area to set up experiment. #############################
 
 
@@ -50,6 +51,10 @@ def load_datasest(dataset_name: str):
         from causalbench.data.sachs.sachs_loader import load_sachs
 
         return load_sachs()
+    elif dataset_name.lower() == "networking":
+        from causalbench.data.networking.networking_loader import load_networking
+
+        return load_networking()
     else:
         raise ValueError(f"Data set: {dataset_name} not found.")
 
@@ -184,7 +189,9 @@ def run(dataset_name: str, algo_name: str, path_result):
 
 def main():
     algo_name_list = list(algo_param_dict.keys())
+    logging.info(f"algorithms are: {algo_name_list}")
     dataset_name_list = list(dataset_list.keys())
+    logging.info(f"data set are: {dataset_name_list}")
     # set output file path
     file_dir = os.path.dirname(__file__)
     path_result = os.path.join(file_dir, "result")
