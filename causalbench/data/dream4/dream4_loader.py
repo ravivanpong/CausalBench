@@ -62,7 +62,7 @@ def load_dream4(version=1):
     return result
 
 
-# dream4 = load_dream4()
+# dream4 = load_dream4(4)
 # print(dream4["var_num"])
 # print(dream4["varsortability"])
 # print(dream4["name"])

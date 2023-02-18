@@ -69,7 +69,7 @@ def load_alarm(index=1, sample_num=500, version=1):
     return result
 
 
-# alarm = load_alarm(3, 1000, 5)
+# alarm = load_alarm(10, 5000, 5)
 # print(alarm["var_num"])
 # print(alarm["varsortability"])
 # print(alarm["name"])

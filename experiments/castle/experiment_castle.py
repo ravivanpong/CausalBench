@@ -2,8 +2,8 @@ import time
 import logging
 import os
 from csv import DictWriter
-from castle.metrics import MetricsDAG
 import concurrent.futures
+from castle.metrics import MetricsDAG
 from causalbench.utils.helper import combine_multiple_lists
 
 ###################### Edit blow area to set up experiment. ##############################
@@ -27,31 +27,31 @@ OUTPUT_FILE_NAME = "alarm_pc_ges"
 
 
 def load_datasest(dataset_name: str):
-    if dataset_name.lower() == "alarm":
+    if "alarm" in dataset_name.lower():
         from causalbench.data.alarm.alarm_loader import load_alarm
 
         kwargs = dataset_list["alarm"]
 
         return load_alarm(**{k: v for k, v in kwargs.items() if v is not None})
-    elif dataset_name.lower() == "dream4":
+    elif "dream4" in dataset_name.lower():
         from causalbench.data.dream4.dream4_loader import load_dream4
 
         kwargs = dataset_list["dream4"]
 
         return load_dream4(**{k: v for k, v in kwargs.items() if v is not None})
-    elif dataset_name.lower() == "jdk":
+    elif "jdk" in dataset_name.lower():
         from causalbench.data.jdk.jdk_loader import load_jdk
 
         return load_jdk()
-    elif dataset_name.lower() == "postgres":
+    elif "postgres" in dataset_name.lower():
         from causalbench.data.postgres.postgres_loader import load_postgres
 
         return load_postgres()
-    elif dataset_name.lower() == "sachs":
+    elif "sachs" in dataset_name.lower():
         from causalbench.data.sachs.sachs_loader import load_sachs
 
         return load_sachs()
-    elif dataset_name.lower() == "networking":
+    elif "networking" in dataset_name.lower():
         from causalbench.data.networking.networking_loader import load_networking
 
         return load_networking()
@@ -71,13 +71,13 @@ def init_algo_from_gcastle(algo_name: str):
     Returns:
         _type_: _description_
     """
-    if algo_name.lower() == "pc":
+    if "pc" in algo_name.lower():
         from castle.algorithms import PC
 
         kwargs = algo_param_dict["pc"]
 
         return PC(**{k: v for k, v in kwargs.items() if v is not None})
-    elif algo_name.lower() == "ges":
+    elif "ges" in algo_name.lower():
         from castle.algorithms import GES
 
         kwargs = algo_param_dict["ges"]
