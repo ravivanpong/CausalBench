@@ -6,28 +6,28 @@ import numpy as np
 from causalbench.metrics.varsortability import varsortability
 
 
-def load_real_cites():
-    """Load real_cites data set from local zip file.
+def load_real_yacht():
+    """Load real_yacht data set from local zip file.
 
     Returns:
         result: dictionary with properties of:
-        - "true_matrix": true graph of real_cites data set in form of Numpy NDArray
-        - "X": real_cites dataset in form of Numpy NDArray.
+        - "true_matrix": true graph of real_yacht data set in form of Numpy NDArray
+        - "X": real_yacht dataset in form of Numpy NDArray. 308 samples. 7 variables.
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
         - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
-    real_cites_target_bytes = None
-    real_cites_data_bytes = None
+    real_yacht_target_bytes = None
+    real_yacht_data_bytes = None
     dirname = os.path.dirname(os.path.realpath(__file__))
-    with ZipFile(f"{dirname}/real_cites.zip") as zip_archive:
-        real_cites_target_bytes = zip_archive.read("cites_target.csv")
-        real_cites_data_bytes = zip_archive.read("cites_data.txt")
+    with ZipFile(f"{dirname}/real_yacht.zip") as zip_archive:
+        real_yacht_target_bytes = zip_archive.read("yacht_target.csv")
+        real_yacht_data_bytes = zip_archive.read("yacht_data.txt")
     # convert bytes into dadaframe
-    true_graph_df = pd.read_csv(BytesIO(real_cites_target_bytes), sep=";")
-    data_df = pd.read_csv(BytesIO(real_cites_data_bytes), sep=" ")
+    true_graph_df = pd.read_csv(BytesIO(real_yacht_target_bytes), sep=";")
+    data_df = pd.read_csv(BytesIO(real_yacht_data_bytes), sep="\t")
 
     # build true graph matrix
     nodes = list(data_df.columns)
@@ -54,12 +54,12 @@ def load_real_cites():
     result["X"] = data
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
-    result["name"] = "real_cites"
+    result["name"] = "real_yacht"
     result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
-# real_cites = load_real_cites()
-# print(real_cites["var_num"])
-# print(real_cites["varsortability"])
-# print(real_cites["sample_num"])
+real_yacht = load_real_yacht()
+print(real_yacht["var_num"])
+print(real_yacht["varsortability"])
+print(real_yacht["sample_num"])
