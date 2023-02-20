@@ -22,23 +22,23 @@ dataset_list = {
 }
 # step 2:  set algorithm and it's parameters
 algo_param_dict = {
-    # "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
-    # "ges": {"criterion": None, "method": None, "k": None, "N": None},
-    # "icalingam": {},
-    # "directlingam": {},
-    # "anm": {},
-    # "golem": {},
+    "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
+    "ges": {"criterion": None, "method": None, "k": None, "N": None},
+    "icalingam": {},
+    "directlingam": {},
+    "anm": {},
+    "golem": {},
     "grandag": {},
-    # "notears": {},
-    # "notearslowrank": {},
-    # "notearsnonlinear": {},
-    # "corl": {},
-    # "rl": {},
-    # "gae": {},
-    # "pnl": {},
+    "notears": {},
+    "notearslowrank": {},
+    "notearsnonlinear": {},
+    "corl": {},
+    "rl": {},
+    "gae": {},
+    "pnl": {},
 }
 # step 3: set output file name
-OUTPUT_FILE_NAME = "alarm_pc_ges"
+OUTPUT_FILE_NAME = "yacht_castle"
 ######################  Edit above area to set up experiment. #############################
 
 
