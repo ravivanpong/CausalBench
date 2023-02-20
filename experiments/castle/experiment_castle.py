@@ -9,57 +9,96 @@ from causalbench.utils.helper import combine_multiple_lists
 ###################### Edit blow area to set up experiment. ##############################
 # step 1: set dataset and it's parameters
 dataset_list = {
-    "alarm": {"index": None, "sample_num": None, "version": None},
+    # "alarm": {"index": 3},
     # "dream4": {"version": None},
     # "jdk": {},
     # "postgres": {},
     # "sachs": {},
-    # "networking": {}
+    # "networking": {},
+    # "real_auto_mpg": {},
+    # "real_cites": {},
+    "real_yacht": {},
+    # "simulated_feedback": {}
 }
 # step 2:  set algorithm and it's parameters
 algo_param_dict = {
-    "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
-    "ges": {"criterion": None, "method": None, "k": None, "N": None},
+    # "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
+    # "ges": {"criterion": None, "method": None, "k": None, "N": None},
+    # "icalingam": {},
+    # "directlingam": {},
+    # "anm": {},
+    # "golem": {},
+    "grandag": {},
+    # "notears": {},
+    # "notearslowrank": {},
+    # "notearsnonlinear": {},
+    # "corl": {},
+    # "rl": {},
+    # "gae": {},
+    # "pnl": {},
 }
 # step 3: set output file name
 OUTPUT_FILE_NAME = "alarm_pc_ges"
 ######################  Edit above area to set up experiment. #############################
 
 
+def init_func_with_param(func, kwargs):
+    if bool(kwargs):
+        return func(**{k: v for k, v in kwargs.items() if v is not None})
+    return func()
+
+
 def load_datasest(dataset_name: str):
-    if "alarm" in dataset_name.lower():
+    kwargs = dataset_list[dataset_name]
+    if dataset_name.lower().startswith("alarm"):
         from causalbench.data.alarm.alarm_loader import load_alarm
 
-        kwargs = dataset_list["alarm"]
-
-        return load_alarm(**{k: v for k, v in kwargs.items() if v is not None})
-    elif "dream4" in dataset_name.lower():
+        return init_func_with_param(load_alarm, kwargs)
+    elif dataset_name.lower().startswith("dream4"):
         from causalbench.data.dream4.dream4_loader import load_dream4
 
-        kwargs = dataset_list["dream4"]
-
-        return load_dream4(**{k: v for k, v in kwargs.items() if v is not None})
-    elif "jdk" in dataset_name.lower():
+        return init_func_with_param(load_dream4, kwargs)
+    elif "jdk" == dataset_name.lower():
         from causalbench.data.jdk.jdk_loader import load_jdk
 
         return load_jdk()
-    elif "postgres" in dataset_name.lower():
+    elif "postgres" == dataset_name.lower():
         from causalbench.data.postgres.postgres_loader import load_postgres
 
         return load_postgres()
-    elif "sachs" in dataset_name.lower():
+    elif "sachs" == dataset_name.lower():
         from causalbench.data.sachs.sachs_loader import load_sachs
 
         return load_sachs()
-    elif "networking" in dataset_name.lower():
+    elif "networking" == dataset_name.lower():
         from causalbench.data.networking.networking_loader import load_networking
 
         return load_networking()
+    elif "real_yacht" == dataset_name.lower():
+        from causalbench.data.real_yacht.real_yacht_loader import load_real_yacht
+
+        return load_real_yacht()
+    elif "real_cities" == dataset_name.lower():
+        from causalbench.data.real_cites.real_cites_loader import load_real_cites
+
+        return load_real_cites()
+    elif "real_auto_mpg" == dataset_name.lower():
+        from causalbench.data.real_auto_mpg.real_auto_mpg_loader import (
+            load_real_auto_mpg,
+        )
+
+        return load_real_auto_mpg()
+    elif "simulated_feedback" == dataset_name.lower():
+        from causalbench.data.simulated_feedback.simulated_feedback_loader import (
+            load_feedback,
+        )
+
+        return load_feedback()
     else:
         raise ValueError(f"Data set: {dataset_name} not found.")
 
 
-def init_algo_from_gcastle(algo_name: str):
+def init_algo_from_gcastle(algo_name: str, var_num: int):
     """_summary_
 
     Args:
@@ -71,57 +110,65 @@ def init_algo_from_gcastle(algo_name: str):
     Returns:
         _type_: _description_
     """
-    if "pc" in algo_name.lower():
+    kwargs = algo_param_dict[algo_name]
+    if algo_name.lower().startswith("pc"):
         from castle.algorithms import PC
 
-        kwargs = algo_param_dict["pc"]
-
-        return PC(**{k: v for k, v in kwargs.items() if v is not None})
-    elif "ges" in algo_name.lower():
+        return init_func_with_param(PC, kwargs)
+    elif algo_name.lower().startswith("ges"):
         from castle.algorithms import GES
 
-        kwargs = algo_param_dict["ges"]
+        return init_func_with_param(GES, kwargs)
+    elif algo_name.lower().startswith("icalingam"):
+        from castle.algorithms import ICALiNGAM
 
-        return GES(**{k: v for k, v in kwargs.items() if v is not None})
-    # elif algo_name.lower() == "icalingam":
-    #     from castle.algorithms import ICALiNGAM
+        return init_func_with_param(ICALiNGAM, kwargs)
+    elif algo_name.lower().startswith("directlingam"):
+        from castle.algorithms import DirectLiNGAM
 
-    #     return ICALiNGAM()
-    # elif algo_name.lower() == "directlingam":
-    #     from castle.algorithms import DirectLiNGAM
+        return init_func_with_param(DirectLiNGAM, kwargs)
+    elif algo_name.lower().startswith("anm"):  # pairwise
+        from castle.algorithms import ANMNonlinear
 
-    #     return DirectLiNGAM()
-    # elif algo_name.lower() == "anm": #pairwise
-    #     from castle.algorithms import ANMNonlinear
-    #     return ANMNonlinear()
+        return init_func_with_param(ANMNonlinear, kwargs)
     # These algorithms need GPU
-    # elif algo.lower() == "golem":
-    #     from castle.algorithms import GOLEM
-    #     return GOLEM()
-    # elif algo.lower() == "grandag":
-    #     from castle.algorithms import GraNDAG
-    #     return GraNDAG()
-    # elif algo_name.lower() == "notears":
-    #     from castle.algorithms import Notears
-    #     return Notears()
-    # elif algo_name.lower() == "notearslowrank":
-    #     from castle.algorithms import NotearsLowRank
-    #     return NotearsLowRank()
-    # elif algo_name.lower() == "notearsnonlinear": #unclear
-    #     from castle.algorithms import NotearsNonlinear
-    #     return NotearsNonlinear()
-    # elif algo_name.lower() == "corl":
-    #     from castle.algorithms import CORL
-    #     return CORL()
-    # elif algo_name.lower() == "rl":
-    #     from castle.algorithms import RL
-    #     return RL()
-    # elif algo.lower() == "gae":
-    #     from castle.algorithms import GAE
-    #     return GAE()
-    # elif algo.lower() == "pnl": # pairwise?
-    #     from castle.algorithms import PNL
-    #     return PNL()
+    elif algo_name.lower().startswith("golem"):
+        from castle.algorithms import GOLEM
+
+        return init_func_with_param(GOLEM, kwargs)
+    elif algo_name.lower().startswith("grandag"):
+        from castle.algorithms import GraNDAG
+
+        kwargs["input_dim"] = var_num
+        return init_func_with_param(GraNDAG, kwargs)
+    elif algo_name.lower().startswith("notears"):
+        from castle.algorithms import Notears
+
+        return init_func_with_param(Notears, kwargs)
+    elif algo_name.lower().startswith("notearslowrank"):
+        from castle.algorithms import NotearsLowRank
+
+        return init_func_with_param(NotearsLowRank, kwargs)
+    elif algo_name.lower().startswith("notearsnonlinear"):  # unclear
+        from castle.algorithms import NotearsNonlinear
+
+        return init_func_with_param(NotearsNonlinear, kwargs)
+    elif algo_name.lower().startswith("corl"):
+        from castle.algorithms import CORL
+
+        return init_func_with_param(CORL, kwargs)
+    elif algo_name.lower().startswith("rl"):
+        from castle.algorithms import RL
+
+        return init_func_with_param(RL, kwargs)
+    elif algo_name.lower().startswith("gae"):
+        from castle.algorithms import GAE
+
+        return GAE()
+    elif algo_name.lower().startswith("pnl"):  # pairwise?
+        from castle.algorithms import PNL
+
+        return init_func_with_param(PNL, kwargs)
     else:
         raise ValueError("Unknown algorithm.")
 
@@ -153,7 +200,8 @@ def run(dataset_name: str, algo_name: str, path_result):
     X = dataset["X"]
     logging.info("%s loaded", dataset_name)
     # init algorithm
-    algo = init_algo_from_gcastle(algo_name)
+    var_num = dataset["var_num"]
+    algo = init_algo_from_gcastle(algo_name, var_num)
     logging.info("%s algorithm initiated.", algo_name)
     # structure learning
     starttime = time.perf_counter()
@@ -203,9 +251,11 @@ def main():
         logging.info("result dir created.")
 
     task_list = combine_multiple_lists([dataset_name_list, algo_name_list])
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        for task in task_list:
-            executor.submit(run, task[0], task[1], path_result)
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     for task in task_list:
+    #         executor.submit(run, task[0], task[1], path_result)
+    for task in task_list:
+        run(task[0], task[1], path_result)
 
 
 if __name__ == "__main__":

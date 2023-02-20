@@ -59,7 +59,7 @@ def load_real_yacht():
     return result
 
 
-real_yacht = load_real_yacht()
-print(real_yacht["var_num"])
-print(real_yacht["varsortability"])
-print(real_yacht["sample_num"])
+# real_yacht = load_real_yacht()
+# print(real_yacht["var_num"])
+# print(real_yacht["varsortability"])
+# print(real_yacht["sample_num"])
