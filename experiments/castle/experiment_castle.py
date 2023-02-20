@@ -22,17 +22,17 @@ dataset_list = {
 }
 # step 2:  set algorithm and it's parameters
 algo_param_dict = {
-    "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
-    "ges": {"criterion": None, "method": None, "k": None, "N": None},
-    "icalingam": {},
-    "directlingam": {},
-    "anm": {},
-    "golem": {},
-    "grandag": {},
-    "notears": {},
-    "notearslowrank": {},
-    "notearsnonlinear": {},
-    "corl": {},
+    # "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
+    # "ges": {"criterion": None, "method": None, "k": None, "N": None},
+    # "icalingam": {},
+    # "directlingam": {},
+    # "anm": {},
+    # "golem": {},
+    # "grandag": {},
+    # "notears": {},
+    # "notearslowrank": {},
+    # "notearsnonlinear": {},
+    # "corl": {},
     "rl": {},
     "gae": {},
     "pnl": {},
@@ -251,11 +251,11 @@ def main():
         logging.info("result dir created.")
 
     task_list = combine_multiple_lists([dataset_name_list, algo_name_list])
-    # with concurrent.futures.ProcessPoolExecutor() as executor:
-    #     for task in task_list:
-    #         executor.submit(run, task[0], task[1], path_result)
-    for task in task_list:
-        run(task[0], task[1], path_result)
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        for task in task_list:
+            executor.submit(run, task[0], task[1], path_result)
+    # for task in task_list:
+    #     run(task[0], task[1], path_result)
 
 
 if __name__ == "__main__":
