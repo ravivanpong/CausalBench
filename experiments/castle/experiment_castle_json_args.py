@@ -295,7 +295,7 @@ def main():
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for task in tasks:
-            future = executor.submit(
+            executor.submit(
                 run,
                 task[0]["name"],
                 task[0]["kwargs"],
@@ -304,7 +304,6 @@ def main():
                 path_result,
                 output_file_name,
             )
-            future.result()
 
 
 if __name__ == "__main__":
