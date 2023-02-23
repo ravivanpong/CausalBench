@@ -9,33 +9,33 @@ from causalbench.utils.helper import combine_multiple_lists
 ###################### Edit blow area to set up experiment. ##############################
 # step 1: set dataset and it's parameters
 dataset_list = {
-    # "alarm": {"index": 3},
-    # "dream4": {"version": None},
-    # "jdk": {},
-    # "postgres": {},
-    # "sachs": {},
-    # "networking": {},
-    # "real_auto_mpg": {},
-    # "real_cites": {},
+    "alarm": {"index": 3, "sample_num": 500, "version": 1},
+    "dream4": {"version": 1},
+    "jdk": {},
+    "postgres": {},
+    "sachs": {},
+    "networking": {},
+    "real_auto_mpg": {},
+    "real_cites": {},
     "real_yacht": {},
-    # "simulated_feedback": {}
+    "simulated_feedback": {"name": "Network1_amp", "version": 1},
 }
 # step 2:  set algorithm and it's parameters
 algo_param_dict = {
-    # "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
-    # "ges": {"criterion": None, "method": None, "k": None, "N": None},
-    # "icalingam": {},
-    # "directlingam": {},
-    # "anm": {},
-    # "golem": {},
-    # "grandag": {},
-    # "notears": {},
-    # "notearslowrank": {},
-    # "notearsnonlinear": {},
+    "pc": {"variant": None, "ci_test": None, "alpha": None, "priori_knowledge": None},
+    "ges": {"criterion": None, "method": None, "k": None, "N": None},
+    "icalingam": {},
+    "directlingam": {},
+    "anm": {},
+    "golem": {},
+    "grandag": {},
+    "notears": {},
+    "notearslowrank": {},
+    "notearsnonlinear": {},
     "corl": {},
-    # "rl": {},
-    # "gae": {},
-    # "pnl": {},
+    "rl": {},
+    "gae": {},
+    "pnl": {},
 }
 # step 3: set output file name
 OUTPUT_FILE_NAME = "yacht_castle"
