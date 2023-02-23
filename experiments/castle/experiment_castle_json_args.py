@@ -9,7 +9,7 @@ import concurrent.futures
 from castle.metrics import MetricsDAG
 from causalbench.utils.helper import combine_multiple_lists
 
-# use parameter file to set up experiment
+
 def build_full_path(string):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     return os.path.normpath(os.path.join(script_dir, string))
@@ -67,6 +67,10 @@ def load_datasest(name: str, kwargs={}):
         )
 
         return load_feedback()
+    elif name.lower() == "child":
+        from causalbench.data.child.child_loader import load_child
+
+        return init_func_with_param(load_child, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."
