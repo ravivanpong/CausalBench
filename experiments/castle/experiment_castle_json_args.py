@@ -241,7 +241,7 @@ def run(
                 "Error": err_message,
             },
         )
-        return
+
     else:
         finishtime = time.perf_counter()
         logging.info("%s on %s done.", algo_name, dataset_name)
@@ -271,7 +271,6 @@ def run(
             "experiment_time": time.ctime(),
         }
         gen_output_file(path_result, f"{output_file_name}.csv", dict_result)
-        return
 
 
 def main():
@@ -296,7 +295,7 @@ def main():
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for task in tasks:
-            executor.submit(
+            future = executor.submit(
                 run,
                 task[0]["name"],
                 task[0]["kwargs"],
@@ -305,6 +304,7 @@ def main():
                 path_result,
                 output_file_name,
             )
+            future.result()
 
 
 if __name__ == "__main__":
