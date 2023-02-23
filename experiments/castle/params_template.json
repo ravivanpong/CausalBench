@@ -1,0 +1,296 @@
+{
+    "datasets": [
+        {
+            "name": "alarm",
+            "kwargs": {
+                "index": 3,
+                "sample_num": 500,
+                "version": 1
+            }
+        },
+        {
+            "name": "dream4",
+            "kwargs": {
+                "version": 1
+            }
+        },
+        {
+            "name": "jdk",
+            "kwargs": {}
+        },
+        {
+            "name": "postgres",
+            "kwargs": {}
+        },
+        {
+            "name": "sachs",
+            "kwargs": {}
+        },
+        {
+            "name": "networking",
+            "kwargs": {}
+        },
+        {
+            "name": "real_auto_mpg",
+            "kwargs": {}
+        },
+        {
+            "name": "real_cites",
+            "kwargs": {}
+        },
+        {
+            "name": "real_yacht",
+            "kwargs": {}
+        },
+        {
+            "name": "simulated_feedback",
+            "kwargs": {
+                "subname": "Network1_amp",
+                "version": 1
+            }
+        }
+    ],
+    "algorithms": [
+        {
+            "gcastle": [
+                {
+                    "name": "pc",
+                    "kwargs": {
+                        "variant": "original",
+                        "alpha": 0.05,
+                        "ci_test": "fisherz",
+                        "priori_knowledge": null
+                    }
+                },
+                {
+                    "name": "ges",
+                    "kwargs": {
+                        "criterion": "bic",
+                        "method": "scatter",
+                        "k": 0.001,
+                        "N": 10
+                    }
+                },
+                {
+                    "name": "icalingam",
+                    "kwargs": {
+                        "random_state": null,
+                        "max_iter": 1000,
+                        "thresh": 0.3
+                    }
+                },
+                {
+                    "name": "directlingam",
+                    "kwargs": {
+                        "prior_knowledge": null,
+                        "measure": "pwling",
+                        "thresh": 0.3
+                    }
+                },
+                {
+                    "name": "anm",
+                    "kwargs": {
+                        "alpha": 0.05
+                    }
+                },
+                {
+                    "name": "golem",
+                    "kwargs": {
+                        "B_init": null,
+                        "lambda_1": 0.02,
+                        "lambda_2": 5.0,
+                        "equal_variances": true,
+                        "non_equal_variances": true,
+                        "learning_rate": 0.001,
+                        "num_iter": 100000.0,
+                        "checkpoint_iter": 5000,
+                        "seed": 1,
+                        "graph_thres": 0.3,
+                        "device_type": "cpu",
+                        "device_ids": 0
+                    }
+                },
+                {
+                    "name": "grandag",
+                    "kwargs": {
+                        "hidden_num": 2,
+                        "hidden_dim": 10,
+                        "batch_size": 64,
+                        "lr": 0.001,
+                        "iterations": 10000,
+                        "model_name": "NonLinGaussANM",
+                        "nonlinear": "leaky-relu",
+                        "optimizer": "rmsprop",
+                        "h_threshold": 1e-07,
+                        "device_type": "cpu",
+                        "device_ids": 0,
+                        "use_pns": false,
+                        "pns_thresh": 0.75,
+                        "num_neighbors": null,
+                        "normalize": false,
+                        "random_seed": 42,
+                        "jac_thresh": true,
+                        "lambda_init": 0.0,
+                        "mu_init": 0.001,
+                        "omega_lambda": 0.0001,
+                        "omega_mu": 0.9,
+                        "stop_crit_win": 100,
+                        "edge_clamp_range": 0.0001,
+                        "norm_prod": "paths",
+                        "square_prod": false
+                    }
+                },
+                {
+                    "name": "notears",
+                    "kwargs": {
+                        "lambda1": 0.1,
+                        "loss_type": "l2",
+                        "max_iter": 100,
+                        "h_tol": 1e-08,
+                        "rho_max": 1e+16,
+                        "w_threshold": 0.3
+                    }
+                },
+                {
+                    "name": "notearslowrank",
+                    "kwargs": {
+                        "w_init": null,
+                        "max_iter": 15,
+                        "h_tol": 1e-06,
+                        "rho_max": 1e+20,
+                        "w_threshold": 0.3
+                    }
+                },
+                {
+                    "name": "notearsnonlinear",
+                    "kwargs": {
+                        "lambda1": 0.01,
+                        "lambda2": 0.01,
+                        "max_iter": 100,
+                        "h_tol": 1e-08,
+                        "rho_max": 1e+16,
+                        "w_threshold": 0.3,
+                        "hidden_layers": [
+                            10,
+                            1
+                        ],
+                        "expansions": 10,
+                        "bias": true,
+                        "model_type": "mlp",
+                        "device_type": "cpu",
+                        "device_ids": null
+                    }
+                },
+                {
+                    "name": "corl",
+                    "kwargs": {
+                        "batch_size": 64,
+                        "input_dim": 100,
+                        "embed_dim": 256,
+                        "normalize": false,
+                        "encoder_name": "transformer",
+                        "encoder_heads": 8,
+                        "encoder_blocks": 3,
+                        "encoder_dropout_rate": 0.1,
+                        "decoder_name": "lstm",
+                        "reward_mode": "episodic",
+                        "reward_score_type": "BIC",
+                        "reward_regression_type": "LR",
+                        "reward_gpr_alpha": 1.0,
+                        "iteration": 10000,
+                        "lambda_iter_num": 500,
+                        "actor_lr": 0.0001,
+                        "critic_lr": 0.001,
+                        "alpha": 0.99,
+                        "init_baseline": -1.0,
+                        "random_seed": 0,
+                        "device_type": "cpu",
+                        "device_ids": 0
+                    }
+                },
+                {
+                    "name": "rl",
+                    "kwargs": {
+                        "encoder_type": "TransformerEncoder",
+                        "hidden_dim": 64,
+                        "num_heads": 16,
+                        "num_stacks": 6,
+                        "residual": false,
+                        "decoder_type": "SingleLayerDecoder",
+                        "decoder_activation": "tanh",
+                        "decoder_hidden_dim": 16,
+                        "use_bias": false,
+                        "use_bias_constant": false,
+                        "bias_initial_value": false,
+                        "batch_size": 64,
+                        "input_dimension": 64,
+                        "normalize": false,
+                        "transpose": false,
+                        "score_type": "BIC",
+                        "reg_type": "LR",
+                        "lambda_iter_num": 1000,
+                        "lambda_flag_default": true,
+                        "score_bd_tight": false,
+                        "lambda2_update": 10,
+                        "score_lower": 0.0,
+                        "score_upper": 0.0,
+                        "seed": 8,
+                        "nb_epoch": 20000,
+                        "lr1_start": 0.001,
+                        "lr1_decay_step": 5000,
+                        "lr1_decay_rate": 0.96,
+                        "alpha": 0.99,
+                        "init_baseline": -1.0,
+                        "l1_graph_reg": 0.0,
+                        "verbose": false,
+                        "device_type": "cpu",
+                        "device_ids": 0
+                    }
+                },
+                {
+                    "name": "gae",
+                    "kwargs": {
+                        "input_dim": 1,
+                        "hidden_layers": 1,
+                        "hidden_dim": 4,
+                        "epochs": 10,
+                        "update_freq": 3000,
+                        "init_iter": 3,
+                        "lr": 0.001,
+                        "alpha": 0.0,
+                        "beta": 2.0,
+                        "init_rho": 1.0,
+                        "rho_thresh": 1e+30,
+                        "gamma": 0.25,
+                        "penalty_lambda": 0.0,
+                        "h_thresh": 1e-08,
+                        "graph_thresh": 0.3,
+                        "early_stopping": false,
+                        "early_stopping_thresh": 1.0,
+                        "seed": 1230,
+                        "device_type": "cpu",
+                        "device_ids": "0"
+                    }
+                },
+                {
+                    "name": "pnl",
+                    "kwargs": {
+                        "hidden_layers": 1,
+                        "hidden_units": 10,
+                        "batch_size": 64,
+                        "epochs": 100,
+                        "lr": 0.0001,
+                        "alpha": 0.01,
+                        "bias": true,
+                        "device_type": "cpu",
+                        "device_ids": null
+                    }
+                }
+            ]
+        },
+        {
+            "lingam": []
+        }
+    ],
+    "OUTPUT_FILE_NAME": "yacht_castle"
+}
