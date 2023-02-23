@@ -3,6 +3,7 @@ import logging
 import os
 import json
 import argparse
+import numpy as np
 from csv import DictWriter
 import concurrent.futures
 from castle.metrics import MetricsDAG
@@ -193,13 +194,26 @@ def run(
     is_success = True
     err_message = None
     # structure learning
-    starttime = time.perf_counter()
-    try:
-        algo.learn(X)
-    except Exception as err:
-        logging.warning("Error: %s", err)
-        is_success = False
-        err_message = err
+    if (
+        algo_name.lower() != "notearslowrank"
+    ):  # notearslowrank takes additional argument "rank" for lean method.
+        starttime = time.perf_counter()
+        try:
+            algo.learn(X)
+        except Exception as err:
+            logging.warning("Error: %s", err)
+            is_success = False
+            err_message = err
+    else:
+        rank = np.linalg.matrix_rank(dataset["true_matrix"])
+        starttime = time.perf_counter()
+        try:
+            algo.learn(X, rank)
+        except Exception as err:
+            logging.warning("Error: %s", err)
+            is_success = False
+            err_message = err
+
     if not is_success:
         gen_output_file(
             path_result,
