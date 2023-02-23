@@ -190,12 +190,15 @@ def run(
     var_num = dataset["var_num"]
     algo = init_algo_from_gcastle(algo_name, var_num, algo_kwargs)
     logging.info("%s algorithm initiated.", algo_name)
+    is_success = True
     # structure learning
     starttime = time.perf_counter()
     try:
         algo.learn(X)
     except Exception as err:
         logging.warning("Error: %s", err)
+        is_success = False
+    if not is_success:
         gen_output_file(
             path_result,
             f"{output_file_name}.csv",
@@ -210,36 +213,35 @@ def run(
                 "Error": err,
             },
         )
-        return
+    else:
+        finishtime = time.perf_counter()
+        logging.info("%s on %s done.", algo_name, dataset_name)
+        runtime = round(finishtime - starttime, 2)
 
-    finishtime = time.perf_counter()
-    logging.info("%s on %s done.", algo_name, dataset_name)
-    runtime = round(finishtime - starttime, 2)
+        # calculate metrics
+        mt = MetricsDAG(algo.causal_matrix, true_causal_matrix)
 
-    # calculate metrics
-    mt = MetricsDAG(algo.causal_matrix, true_causal_matrix)
-
-    dict_result = {
-        "dataset_name": dataset["name"],
-        "varsortability": dataset["varsortability"],
-        "N_variables": X.shape[1],
-        "N_obs": X.shape[0],
-        "algo_name": algo_name.lower(),
-        "algo_param": algo_kwargs,
-        "library_name": "gCastle",
-        "fdr": mt.metrics["fdr"],
-        "tpr": mt.metrics["tpr"],
-        "fpr": mt.metrics["fpr"],
-        "shd": mt.metrics["shd"],
-        "nnz": mt.metrics["nnz"],
-        "precision": mt.metrics["precision"],
-        "recall": mt.metrics["recall"],
-        "F1": mt.metrics["F1"],
-        "gscore": mt.metrics["gscore"],
-        "runtime_second": runtime,
-        "experiment_time": time.ctime(),
-    }
-    gen_output_file(path_result, f"{output_file_name}.csv", dict_result)
+        dict_result = {
+            "dataset_name": dataset["name"],
+            "varsortability": dataset["varsortability"],
+            "N_variables": X.shape[1],
+            "N_obs": X.shape[0],
+            "algo_name": algo_name.lower(),
+            "algo_param": algo_kwargs,
+            "library_name": "gCastle",
+            "fdr": mt.metrics["fdr"],
+            "tpr": mt.metrics["tpr"],
+            "fpr": mt.metrics["fpr"],
+            "shd": mt.metrics["shd"],
+            "nnz": mt.metrics["nnz"],
+            "precision": mt.metrics["precision"],
+            "recall": mt.metrics["recall"],
+            "F1": mt.metrics["F1"],
+            "gscore": mt.metrics["gscore"],
+            "runtime_second": runtime,
+            "experiment_time": time.ctime(),
+        }
+        gen_output_file(path_result, f"{output_file_name}.csv", dict_result)
 
 
 def main():
