@@ -32,10 +32,10 @@ algo_param_dict = {
     # "notears": {},
     # "notearslowrank": {},
     # "notearsnonlinear": {},
-    # "corl": {},
+    "corl": {},
     "rl": {},
-    "gae": {},
-    "pnl": {},
+    # "gae": {},
+    # "pnl": {},
 }
 # step 3: set output file name
 OUTPUT_FILE_NAME = "yacht_castle"
