@@ -226,9 +226,11 @@ def run(
 def main():
     os.environ["CASTLE_BACKEND"] = "pytorch"
     algorithms = params["algorithms"][0]["gcastle"]
-    logging.info("algorithms are: %s", algorithms)
+    algos_to_print = list({algo["name"] for algo in algorithms})
+    logging.info("algorithms are: %s", algos_to_print)
     datasets = params["datasets"]
-    logging.info("data set are: %s", datasets)
+    datasets_to_print = list({dataset["name"] for dataset in datasets})
+    logging.info("data set are: %s", datasets_to_print)
     output_file_name = params["OUTPUT_FILE_NAME"]
     # set output file path
     file_dir = os.path.dirname(__file__)
