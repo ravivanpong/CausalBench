@@ -50,7 +50,7 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.real_yacht.real_yacht_loader import load_real_yacht
 
         return load_real_yacht()
-    elif name.lower() == "real_cities":
+    elif name.lower() == "real_cites":
         from causalbench.data.real_cites.real_cites_loader import load_real_cites
 
         return load_real_cites()
@@ -192,7 +192,10 @@ def run(
     logging.info("%s algorithm initiated.", algo_name)
     # structure learning
     starttime = time.perf_counter()
-    algo.learn(X)
+    try:
+        algo.learn(X)
+    except ValueError as err:
+        logging.warn("Error: %s", err)
     finishtime = time.perf_counter()
     logging.info("%s on %s done.", algo_name, dataset_name)
     runtime = round(finishtime - starttime, 2)
@@ -230,7 +233,7 @@ def main():
     logging.info("algorithms are: %s", algos_to_print)
     datasets = params["datasets"]
     datasets_to_print = list({dataset["name"] for dataset in datasets})
-    logging.info("data set are: %s", datasets_to_print)
+    logging.info("datasets are: %s", datasets_to_print)
     output_file_name = params["OUTPUT_FILE_NAME"]
     # set output file path
     file_dir = os.path.dirname(__file__)
@@ -245,7 +248,7 @@ def main():
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for task in tasks:
-            executor.submit(
+            future = executor.submit(
                 run,
                 task[0]["name"],
                 task[0]["kwargs"],
@@ -254,6 +257,7 @@ def main():
                 path_result,
                 output_file_name,
             )
+            future.result()
 
 
 if __name__ == "__main__":
