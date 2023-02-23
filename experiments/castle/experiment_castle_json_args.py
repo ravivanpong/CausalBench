@@ -71,6 +71,10 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.child.child_loader import load_child
 
         return init_func_with_param(load_child, kwargs)
+    elif name.lower() == "insurance":
+        from causalbench.data.insurance.insurance_loader import load_ins
+
+        return init_func_with_param(load_ins, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."
