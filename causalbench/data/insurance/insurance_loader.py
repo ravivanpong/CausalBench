@@ -68,7 +68,11 @@ def load_ins(index=1, sample_num=500, version=1):
     result["X"] = data
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
-    result["name"] = f"ins{index}_s{sample_num}_v{version}"
+    result["name"] = (
+        f"Insurance{index}_s{sample_num}_v{version}"
+        if index != 1
+        else f"Insurance_s{sample_num}_v{version}"
+    )
     result["varsortability"] = varsortability(data, true_matrix)
     return result
 

@@ -64,6 +64,14 @@
                 "sample_num": 500,
                 "version": 1
             }
+        },
+        {
+            "name": "hailfinder",
+            "kwargs": {
+                "index": 1,
+                "sample_num": 500,
+                "version": 1
+            }
         }
     ],
     "algorithms": [
