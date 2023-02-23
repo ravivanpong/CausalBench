@@ -224,6 +224,7 @@ def run(
 
 
 def main():
+    os.environ["CASTLE_BACKEND"] = "pytorch"
     algorithms = params["algorithms"][0]["gcastle"]
     logging.info("algorithms are: %s", algorithms)
     datasets = params["datasets"]
