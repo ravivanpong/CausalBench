@@ -194,8 +194,24 @@ def run(
     starttime = time.perf_counter()
     try:
         algo.learn(X)
-    except ValueError as err:
-        logging.warn("Error: %s", err)
+    except Exception as err:
+        logging.warning("Error: %s", err)
+        gen_output_file(
+            path_result,
+            f"{output_file_name}.csv",
+            {
+                "dataset_name": dataset["name"],
+                "varsortability": dataset["varsortability"],
+                "N_variables": X.shape[1],
+                "N_obs": X.shape[0],
+                "algo_name": algo_name.lower(),
+                "algo_param": algo_kwargs,
+                "library_name": "gCastle",
+                "Error": err,
+            },
+        )
+        return
+
     finishtime = time.perf_counter()
     logging.info("%s on %s done.", algo_name, dataset_name)
     runtime = round(finishtime - starttime, 2)
