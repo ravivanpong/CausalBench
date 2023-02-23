@@ -191,6 +191,7 @@ def run(
     algo = init_algo_from_gcastle(algo_name, var_num, algo_kwargs)
     logging.info("%s algorithm initiated.", algo_name)
     is_success = True
+    err_message = None
     # structure learning
     starttime = time.perf_counter()
     try:
@@ -198,6 +199,7 @@ def run(
     except Exception as err:
         logging.warning("Error: %s", err)
         is_success = False
+        err_message = err
     if not is_success:
         gen_output_file(
             path_result,
@@ -210,7 +212,7 @@ def run(
                 "algo_name": algo_name.lower(),
                 "algo_param": algo_kwargs,
                 "library_name": "gCastle",
-                "Error": err,
+                "Error": err_message,
             },
         )
     else:
