@@ -293,17 +293,26 @@ def main():
         logging.info("result dir created.")
 
     tasks = combine_multiple_lists([algorithms, datasets])
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        for task in tasks:
-            executor.submit(
-                run,
-                task[0]["name"],
-                task[0]["kwargs"],
-                task[1]["name"],
-                task[1]["kwargs"],
-                path_result,
-                output_file_name,
-            )
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     for task in tasks:
+    #         executor.submit(
+    #             run,
+    #             task[0]["name"],
+    #             task[0]["kwargs"],
+    #             task[1]["name"],
+    #             task[1]["kwargs"],
+    #             path_result,
+    #             output_file_name,
+    #         )
+    for task in tasks:
+        run(
+            task[0]["name"],
+            task[0]["kwargs"],
+            task[1]["name"],
+            task[1]["kwargs"],
+            path_result,
+            output_file_name,
+        )
 
 
 if __name__ == "__main__":
