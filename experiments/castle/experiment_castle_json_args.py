@@ -99,6 +99,10 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.link.link_loader import load_link
 
         return init_func_with_param(load_link, kwargs)
+    elif name.lower() == "gene":
+        from causalbench.data.gene.gene_loader import load_gene
+
+        return init_func_with_param(load_gene, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."
