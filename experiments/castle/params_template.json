@@ -72,6 +72,13 @@
                 "sample_num": 500,
                 "version": 1
             }
+        },
+        {
+            "name": "barley",
+            "kwargs": {
+                "sample_num": 500,
+                "version": 1
+            }
         }
     ],
     "algorithms": [
