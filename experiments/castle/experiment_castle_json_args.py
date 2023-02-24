@@ -84,9 +84,13 @@ def load_datasest(name: str, kwargs={}):
 
         return init_func_with_param(load_barley, kwargs)
     elif name.lower() == "mildew":
-        from causalbench.data.mildew import mildew_loader
+        from causalbench.data.mildew.mildew_loader import load_mildew
 
-        return init_func_with_param(mildew_loader, kwargs)
+        return init_func_with_param(load_mildew, kwargs)
+    elif name.lower() == "munin1":
+        from causalbench.data.munin1.munin1_loader import load_munin1
+
+        return init_func_with_param(load_munin1, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."
