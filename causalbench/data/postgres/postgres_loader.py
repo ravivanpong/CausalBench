@@ -60,7 +60,7 @@ def load_postgres():
     return result
 
 
-postgres = load_postgres()
-print(postgres["var_num"])
-print(postgres["varsortability"])
-print(postgres["sample_num"])
+# postgres = load_postgres()
+# print(postgres["var_num"])
+# print(postgres["varsortability"])
+# print(postgres["sample_num"])

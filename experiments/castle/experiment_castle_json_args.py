@@ -91,6 +91,10 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.munin1.munin1_loader import load_munin1
 
         return init_func_with_param(load_munin1, kwargs)
+    elif name.lower() == "pigs":
+        from causalbench.data.pigs.pigs_loader import load_pigs
+
+        return init_func_with_param(load_pigs, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."
