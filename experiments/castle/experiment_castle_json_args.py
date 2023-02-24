@@ -83,6 +83,10 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.barley.barley_loader import load_barley
 
         return init_func_with_param(load_barley, kwargs)
+    elif name.lower() == "mildew":
+        from causalbench.data.mildew import mildew_loader
+
+        return init_func_with_param(mildew_loader, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} not found. Please check info.txt for supported datasets."

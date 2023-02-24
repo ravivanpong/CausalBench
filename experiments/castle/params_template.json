@@ -79,6 +79,13 @@
                 "sample_num": 500,
                 "version": 1
             }
+        },
+        {
+            "name": "mildew",
+            "kwargs": {
+                "sample_num": 500,
+                "version": 1
+            }
         }
     ],
     "algorithms": [
