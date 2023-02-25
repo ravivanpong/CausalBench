@@ -87,13 +87,9 @@ def run(true_causal_matrix, X, algo_name: str, path_result):
         from lingam import LongitudinalLiNGAM
 
         algo = LongitudinalLiNGAM()
-    elif algo_name.lower() == "lim":
-        from lingam import LiM  # pairwise
-
-        algo = LiM()
-    # bottomupparcelingam, CAM-UV, rcd, lina, mdlina, resit are taged as pairwise
+    # LIM, bottomupparcelingam, CAM-UV, rcd, lina, mdlina, resit are taged as pairwise
     else:
-        raise ValueError("Unknown algorithm.==========")
+        raise ValueError("Unknown algorithm.")
 
     logging.info(f"import algorithm corresponding to {algo_name} complete!")
 

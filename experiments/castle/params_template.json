@@ -355,8 +355,10 @@
             ]
         },
         {
-            "lingam": []
+            "lingam": [
+                
+            ]
         }
     ],
-    "OUTPUT_FILE_NAME": "yacht_castle"
+    "OUTPUT_FILE_NAME": "yacht_lingam"
 }
