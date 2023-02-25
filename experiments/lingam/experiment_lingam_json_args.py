@@ -71,7 +71,7 @@ def run(
     is_success = True
     err_message = None
     # structure learning
-    if algo_kwargs.lower() in ["multigroupdirectlingam", "longitudinallingam"]:
+    if algo_name.lower() in ["multigroupdirectlingam", "longitudinallingam"]:
         starttime = time.perf_counter()
         try:
             algo.fit([X])
