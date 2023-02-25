@@ -4,109 +4,19 @@ import os
 import json
 import argparse
 import numpy as np
-from csv import DictWriter
 import concurrent.futures
 from castle.metrics import MetricsDAG
-from causalbench.utils.helper import combine_multiple_lists
+from causalbench.utils.helper import (
+    combine_multiple_lists,
+    init_func_with_param,
+    load_datasest,
+    gen_output_file,
+)
 
 
 def build_full_path(string):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     return os.path.normpath(os.path.join(script_dir, string))
-
-
-def init_func_with_param(func, kwargs: dict):
-    if bool(kwargs):
-        return func(**{k: v for k, v in kwargs.items() if v is not None})
-    else:
-        raise ValueError("kwargs can not be empty.")
-
-
-def load_datasest(name: str, kwargs={}):
-    if name.lower() == "alarm":
-        from causalbench.data.alarm.alarm_loader import load_alarm
-
-        return init_func_with_param(load_alarm, kwargs)
-    elif name.lower() == "dream4":
-        from causalbench.data.dream4.dream4_loader import load_dream4
-
-        return init_func_with_param(load_dream4, kwargs)
-    elif name.lower() == "jdk":
-        from causalbench.data.jdk.jdk_loader import load_jdk
-
-        return load_jdk()
-    elif name.lower() == "postgres":
-        from causalbench.data.postgres.postgres_loader import load_postgres
-
-        return load_postgres()
-    elif name.lower() == "sachs":
-        from causalbench.data.sachs.sachs_loader import load_sachs
-
-        return load_sachs()
-    elif name.lower() == "networking":
-        from causalbench.data.networking.networking_loader import load_networking
-
-        return load_networking()
-    elif name.lower() == "real_yacht":
-        from causalbench.data.real_yacht.real_yacht_loader import load_real_yacht
-
-        return load_real_yacht()
-    elif name.lower() == "real_cites":
-        from causalbench.data.real_cites.real_cites_loader import load_real_cites
-
-        return load_real_cites()
-    elif name.lower() == "real_auto_mpg":
-        from causalbench.data.real_auto_mpg.real_auto_mpg_loader import (
-            load_real_auto_mpg,
-        )
-
-        return load_real_auto_mpg()
-    elif name.lower() == "simulated_feedback":
-        from causalbench.data.simulated_feedback.simulated_feedback_loader import (
-            load_feedback,
-        )
-
-        return load_feedback()
-    elif name.lower() == "child":
-        from causalbench.data.child.child_loader import load_child
-
-        return init_func_with_param(load_child, kwargs)
-    elif name.lower() == "insurance":
-        from causalbench.data.insurance.insurance_loader import load_ins
-
-        return init_func_with_param(load_ins, kwargs)
-    elif name.lower() == "hailfinder":
-        from causalbench.data.hailfinder.hailfinder_loader import load_hailf
-
-        return init_func_with_param(load_hailf, kwargs)
-    elif name.lower() == "barley":
-        from causalbench.data.barley.barley_loader import load_barley
-
-        return init_func_with_param(load_barley, kwargs)
-    elif name.lower() == "mildew":
-        from causalbench.data.mildew.mildew_loader import load_mildew
-
-        return init_func_with_param(load_mildew, kwargs)
-    elif name.lower() == "munin1":
-        from causalbench.data.munin1.munin1_loader import load_munin1
-
-        return init_func_with_param(load_munin1, kwargs)
-    elif name.lower() == "pigs":
-        from causalbench.data.pigs.pigs_loader import load_pigs
-
-        return init_func_with_param(load_pigs, kwargs)
-    elif name.lower() == "link":
-        from causalbench.data.link.link_loader import load_link
-
-        return init_func_with_param(load_link, kwargs)
-    elif name.lower() == "gene":
-        from causalbench.data.gene.gene_loader import load_gene
-
-        return init_func_with_param(load_gene, kwargs)
-    else:
-        raise ValueError(
-            f"Data set: {name} not found. Please check info.txt for supported datasets."
-        )
 
 
 def init_algo_from_gcastle(
@@ -188,26 +98,6 @@ def init_algo_from_gcastle(
         return init_func_with_param(PNL, kwargs)
     else:
         raise ValueError("Unknown algorithm.")
-
-
-def gen_output_file(path_result, file_name, dict_result):
-    """_summary_
-
-    Args:
-        path_result (_type_): _description_
-        file_name (_type_): _description_
-        dict_result (_type_): _description_
-    """
-    outfile = os.path.join(path_result, file_name)
-    if os.path.exists(outfile):
-        with open(outfile, "a", encoding="utf-8") as file:
-            writer = DictWriter(file, dict_result.keys(), delimiter=";")
-            writer.writerow(dict_result)
-    else:
-        with open(outfile, "w", encoding="utf-8") as file:
-            writer = DictWriter(file, dict_result.keys(), delimiter=";")
-            writer.writeheader()
-            writer.writerow(dict_result)
 
 
 def run(

@@ -1,13 +1,134 @@
 """
-This file provides help functions for causal discovery.
+This file provides help functions for conducting experiments.
 """
 
 
 import logging
 import numpy as np
+import os.path
+from csv import DictWriter
+from causalbench.metrics.varsortability import varsortability
 
 
-def combine_two_lists(list_1, list_2):
+def init_func_with_param(func, kwargs: dict):
+    """_summary_
+
+    Args:
+        func (_type_): _description_
+        kwargs (dict): _description_
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    if bool(kwargs):
+        return func(**{k: v for k, v in kwargs.items() if v is not None})
+    else:
+        raise ValueError("kwargs can not be empty.")
+
+
+def load_datasest(name: str, kwargs={}):
+    """_summary_
+
+    Args:
+        name (str): _description_
+        kwargs (dict, optional): _description_. Defaults to {}.
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    if name.lower() == "alarm":
+        from causalbench.data.alarm.alarm_loader import load_alarm
+
+        return init_func_with_param(load_alarm, kwargs)
+    elif name.lower() == "dream4":
+        from causalbench.data.dream4.dream4_loader import load_dream4
+
+        return init_func_with_param(load_dream4, kwargs)
+    elif name.lower() == "jdk":
+        from causalbench.data.jdk.jdk_loader import load_jdk
+
+        return load_jdk()
+    elif name.lower() == "postgres":
+        from causalbench.data.postgres.postgres_loader import load_postgres
+
+        return load_postgres()
+    elif name.lower() == "sachs":
+        from causalbench.data.sachs.sachs_loader import load_sachs
+
+        return load_sachs()
+    elif name.lower() == "networking":
+        from causalbench.data.networking.networking_loader import load_networking
+
+        return load_networking()
+    elif name.lower() == "real_yacht":
+        from causalbench.data.real_yacht.real_yacht_loader import load_real_yacht
+
+        return load_real_yacht()
+    elif name.lower() == "real_cites":
+        from causalbench.data.real_cites.real_cites_loader import load_real_cites
+
+        return load_real_cites()
+    elif name.lower() == "real_auto_mpg":
+        from causalbench.data.real_auto_mpg.real_auto_mpg_loader import (
+            load_real_auto_mpg,
+        )
+
+        return load_real_auto_mpg()
+    elif name.lower() == "simulated_feedback":
+        from causalbench.data.simulated_feedback.simulated_feedback_loader import (
+            load_feedback,
+        )
+
+        return load_feedback()
+    elif name.lower() == "child":
+        from causalbench.data.child.child_loader import load_child
+
+        return init_func_with_param(load_child, kwargs)
+    elif name.lower() == "insurance":
+        from causalbench.data.insurance.insurance_loader import load_ins
+
+        return init_func_with_param(load_ins, kwargs)
+    elif name.lower() == "hailfinder":
+        from causalbench.data.hailfinder.hailfinder_loader import load_hailf
+
+        return init_func_with_param(load_hailf, kwargs)
+    elif name.lower() == "barley":
+        from causalbench.data.barley.barley_loader import load_barley
+
+        return init_func_with_param(load_barley, kwargs)
+    elif name.lower() == "mildew":
+        from causalbench.data.mildew.mildew_loader import load_mildew
+
+        return init_func_with_param(load_mildew, kwargs)
+    elif name.lower() == "munin1":
+        from causalbench.data.munin1.munin1_loader import load_munin1
+
+        return init_func_with_param(load_munin1, kwargs)
+    elif name.lower() == "pigs":
+        from causalbench.data.pigs.pigs_loader import load_pigs
+
+        return init_func_with_param(load_pigs, kwargs)
+    elif name.lower() == "link":
+        from causalbench.data.link.link_loader import load_link
+
+        return init_func_with_param(load_link, kwargs)
+    elif name.lower() == "gene":
+        from causalbench.data.gene.gene_loader import load_gene
+
+        return init_func_with_param(load_gene, kwargs)
+    else:
+        raise ValueError(
+            f"Data set: {name} with {kwargs} not found. Please check info.txt for supported datasets."
+        )
+
+
+def _combine_two_lists(list_1, list_2):
     """
     Generate all possible combination of params from two lists
     Example:
@@ -38,25 +159,8 @@ def combine_multiple_lists(lists):
         return lists
     result_array = []
     for sublist in lists:
-        result_array = combine_two_lists(result_array, sublist)
+        result_array = _combine_two_lists(result_array, sublist)
     return result_array
-
-
-def load_data_from_cdt(dataset_name):
-    """Load dataset from causal discovery toolbox
-
-    Args:
-        dataset_name (string): name of the dataset
-
-    Returns:
-         tuple: (pandas.DataFrame, pandas.DataFrame or networkx.DiGraph, numpy matrix)
-    """
-    from cdt.data import load_dataset
-    from networkx import to_numpy_array
-
-    data, true_graph = load_dataset(dataset_name)
-    true_adj_matrix = np.asmatrix(to_numpy_array(true_graph))
-    return data, true_graph, true_adj_matrix
 
 
 def standardize_data(data):
@@ -71,13 +175,12 @@ def calc_varsortability(data, true_adj_matrix):
     """_summary_
 
     Args:
-        data (_type_): _description_
+        data (_type_): _description_s
         true_adj_matrix (_type_): _description_
 
     Returns:
         _type_: _description_
     """
-    from causalbench.metrics.varsortability import varsortability
 
     data_numpy = (
         data if isinstance(data, np.ndarray) else np.array(data)
@@ -133,8 +236,6 @@ def gen_output_file(path_result, file_name, dict_result):
         file_name (_type_): _description_
         dict_result (_type_): _description_
     """
-    import os.path
-    from csv import DictWriter
 
     outfile = os.path.join(path_result, file_name)
     if os.path.exists(outfile):
