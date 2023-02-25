@@ -158,7 +158,7 @@ def run(
 
     else:
         finishtime = time.perf_counter()
-        logging.info("%s on %s done.", algo_name, dataset_name)
+        logging.info("%s on %s done.", algo_name, dataset["name"])
         runtime = round(finishtime - starttime, 2)
 
         # calculate metrics
