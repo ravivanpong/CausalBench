@@ -71,14 +71,22 @@ def run(
     is_success = True
     err_message = None
     # structure learning
-
-    starttime = time.perf_counter()
-    try:
-        algo.fit(X)
-    except Exception as err:
-        logging.warning("Error: %s", err)
-        is_success = False
-        err_message = err
+    if algo_kwargs.lower() in ["multigroupdirectlingam", "longitudinallingam"]:
+        starttime = time.perf_counter()
+        try:
+            algo.fit([X])
+        except Exception as err:
+            logging.warning("Error: %s", err)
+            is_success = False
+            err_message = err
+    else:
+        starttime = time.perf_counter()
+        try:
+            algo.fit(X)
+        except Exception as err:
+            logging.warning("Error: %s", err)
+            is_success = False
+            err_message = err
 
     if not is_success:
         gen_output_file(
