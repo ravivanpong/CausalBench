@@ -134,7 +134,6 @@ def run(
 
 
 def main():
-    os.environ["CASTLE_BACKEND"] = "pytorch"
     algorithms = params["algorithms"][1]["lingam"]
     algos_to_print = list({algo["name"] for algo in algorithms})
     logging.info("algorithms are: %s", algos_to_print)
