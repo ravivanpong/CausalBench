@@ -82,6 +82,6 @@ if __name__ == "__main__":
         for sample_num in sample_nums:
             for version in versions:
                 kwargs = {"index": index, "sample_num": sample_num, "version": version}
-                df = update_dataset_info("alarm", kwargs, df)
+                df = update_dataset_info("child", kwargs, df)
 
     df.to_csv(f"{dirname}/datasets_summary.csv", index=False)
