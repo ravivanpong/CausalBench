@@ -88,7 +88,7 @@ if __name__ == "__main__":
     for sample_num in sample_nums:
         for version in versions:
             kwargs = {"sample_num": sample_num, "version": version}
-            df = update_dataset_info("mildew", kwargs, df)
+            df = update_dataset_info("munin1", kwargs, df)
 
     # indexs = [1, 3, 5, 10]
     # sample_nums = [500, 1000, 5000]
