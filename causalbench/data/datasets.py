@@ -81,21 +81,20 @@ if __name__ == "__main__":
     #     kwargs = {"version": version}
     #     df = update_dataset_info("dream4", kwargs, df)
 
-    sample_nums = [500, 1000, 5000]
-    versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-    for sample_num in sample_nums:
-        for version in versions:
-            kwargs = {"sample_num": sample_num, "version": version}
-            df = update_dataset_info("gene", kwargs, df)
-
-    # indexs = [1, 3, 5, 10]
     # sample_nums = [500, 1000, 5000]
     # versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # for index in indexs:
-    #     for sample_num in sample_nums:
-    #         for version in versions:
-    #             kwargs = {"index": index, "sample_num": sample_num, "version": version}
-    #             df = update_dataset_info("child", kwargs, df)
+    # for sample_num in sample_nums:
+    #     for version in versions:
+    #         kwargs = {"sample_num": sample_num, "version": version}
+    #         df = update_dataset_info("gene", kwargs, df)
+
+    indexs = [1, 3, 5, 10]
+    sample_nums = [500, 1000, 5000]
+    versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    for index in indexs:
+        for sample_num in sample_nums:
+            for version in versions:
+                kwargs = {"index": index, "sample_num": sample_num, "version": version}
+                df = update_dataset_info("hailfinder", kwargs, df)
 
     df.to_csv(f"{dirname}/datasets_summary.csv", index=False)
