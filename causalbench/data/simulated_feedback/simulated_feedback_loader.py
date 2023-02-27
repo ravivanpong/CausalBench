@@ -71,6 +71,11 @@ def load_feedback(name="Network1_amp", version=1):
         raise ValueError(
             f"Version must be one of these values: [1, 2, 3, ..., 60]. Instead, {version} was given."
         )
+    # sim-25.Network6_amp.continuous.txt is empty. Problem of the source.
+    if name == "Network6_amp" and version == 25:
+        raise ValueError(
+            f"sim-25.Network6_amp.continuous.txt is empty. Please choose another dataset."
+        )
     if version in range(1, 10):
         version = "0" + str(version)
 

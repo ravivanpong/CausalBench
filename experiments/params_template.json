@@ -45,7 +45,7 @@
         {
             "name": "simulated_feedback",
             "kwargs": {
-                "subname": "Network1_amp",
+                "name": "Network1_amp",
                 "version": 1
             }
         },

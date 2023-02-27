@@ -85,7 +85,7 @@ def load_datasest(name: str, kwargs: dict):
             load_feedback,
         )
 
-        return load_feedback()
+        return init_func_with_param(load_feedback, kwargs)
     elif name.lower() == "child":
         from causalbench.data.child.child_loader import load_child
 
