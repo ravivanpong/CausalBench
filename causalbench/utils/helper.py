@@ -122,6 +122,10 @@ def load_datasest(name: str, kwargs={}):
         from causalbench.data.gene.gene_loader import load_gene
 
         return init_func_with_param(load_gene, kwargs)
+    elif name.lower() == "dataverse":
+        from causalbench.data.dataverse.dataverse_loader import load_dataverse
+
+        return init_func_with_param(load_dataverse, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} with {kwargs} not found. Please check info.txt for supported datasets."
@@ -247,3 +251,25 @@ def gen_output_file(path_result, file_name, dict_result):
             writer = DictWriter(file, dict_result.keys(), delimiter=";")
             writer.writeheader()
             writer.writerow(dict_result)
+
+
+def dataframe_to_edges(df, source_name, target_name) -> list:
+    edges = []
+    for _, row in df.iterrows():
+        edges.append((row[source_name], row[target_name]))
+    return edges
+
+
+def edges_to_matrix(edges: list, nodes: list):
+    node_index_map = {}
+    i = 0
+    for node in nodes:
+        node_index_map[node] = i
+        i += 1
+
+    n_nodes = len(nodes)
+
+    matrix = np.zeros((n_nodes, n_nodes))
+    for edge in edges:
+        matrix[node_index_map[edge[0]]][node_index_map[edge[1]]] = 1
+    return matrix

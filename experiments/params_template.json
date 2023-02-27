@@ -114,6 +114,15 @@
                 "sample_num": 1000,
                 "version": 1
             }
+        },
+        {
+            "name": "dataverse",
+            "kwargs":{
+                "with_hidden_var": true,
+                "is_big":false,
+                "max_parent_num":2,
+                "version":1
+            }
         }
     ],
     "algorithms": [

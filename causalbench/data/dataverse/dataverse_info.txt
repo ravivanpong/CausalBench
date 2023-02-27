@@ -1,0 +1,9 @@
+Graph datasets in csv format.
+Used in the article Learning Functional Causal Models with Generative Neural Networks. Olivier Goudet - Diviyan Kalainathan - Aris Tritas - Philippe Caillou - Paola Tubaro - Isabelle Guyon - Michèle Sébag
+
+Each file *_numdata.csv contain the data of around 20 variables connected in a graph.
+There are 3 hidden variables.
+Each file *_skeleton.csv contains the skeleton of the graph (including spurious links due to common hidden cause)
+Each file *_target.csv contains the ground truth of the graph with the direct visible cause -> effect
+
+The task is to recover the direct visible links cause->effect while removing the spurious links of the skeleton
