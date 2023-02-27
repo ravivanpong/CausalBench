@@ -2,7 +2,6 @@ import os
 from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
-import numpy as np
 from causalbench.metrics.varsortability import varsortability
 from causalbench.utils.helper import edges_to_matrix, dataframe_to_edges
 

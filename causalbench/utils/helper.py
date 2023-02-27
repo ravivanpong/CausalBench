@@ -29,7 +29,7 @@ def init_func_with_param(func, kwargs: dict):
         raise ValueError("kwargs can not be empty.")
 
 
-def load_datasest(name: str, kwargs={}):
+def load_datasest(name: str, kwargs: dict):
     """_summary_
 
     Args:
