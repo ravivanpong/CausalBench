@@ -107,8 +107,8 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
     return result
 
 
-dataverse = load_dataverse(True, True, 5, 5)
-print(dataverse["var_num"])
-print(dataverse["sample_num"])
-print(dataverse["varsortability"])
-print(dataverse["name"])
+# dataverse = load_dataverse(True, True, 5, 5)
+# print(dataverse["var_num"])
+# print(dataverse["sample_num"])
+# print(dataverse["varsortability"])
+# print(dataverse["name"])
