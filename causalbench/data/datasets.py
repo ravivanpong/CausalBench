@@ -76,19 +76,19 @@ if __name__ == "__main__":
     dirname = os.path.dirname(os.path.realpath(__file__))
     df = pd.read_csv(f"{dirname}/datasets_summary.csv")
 
-    # df = update_dataset_info("jdk", {}, df)
+    df = update_dataset_info("real_yacht", {}, df)
 
     # versions = [1, 2, 3, 4]
     # for version in versions:
     #     kwargs = {"version": version}
     #     df = update_dataset_info("dream4", kwargs, df)
 
-    sample_nums = [500, 1000, 5000]
-    versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    for sample_num in sample_nums:
-        for version in versions:
-            kwargs = {"sample_num": sample_num, "version": version}
-            df = update_dataset_info("munin1", kwargs, df)
+    # sample_nums = [500, 1000, 5000]
+    # versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # for sample_num in sample_nums:
+    #     for version in versions:
+    #         kwargs = {"sample_num": sample_num, "version": version}
+    #         df = update_dataset_info("pigs", kwargs, df)
 
     # indexs = [1, 3, 5, 10]
     # sample_nums = [500, 1000, 5000]
