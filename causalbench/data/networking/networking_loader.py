@@ -37,7 +37,6 @@ def load_networking():
 
     data_df = data_df.drop(columns=["server.class"])
     # data_df.replace({False: 0, True: 1}, inplace=True)
-    print(data_df.iloc[0])
 
     # build true graph matrix
     nodes = list(data_df.columns)
@@ -69,7 +68,7 @@ def load_networking():
     return result
 
 
-# networking = load_networking()
+# networking =load_networking()
 # print(networking["var_num"])
 # print(networking["sample_num"])
 # print(networking["varsortability"])
