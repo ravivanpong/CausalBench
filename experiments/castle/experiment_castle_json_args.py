@@ -3,8 +3,8 @@ import logging
 import os
 import json
 import argparse
-import numpy as np
 import concurrent.futures
+import numpy as np
 from castle.metrics import MetricsDAG
 from causalbench.utils.helper import (
     combine_multiple_lists,
