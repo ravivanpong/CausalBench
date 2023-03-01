@@ -21,7 +21,6 @@ def load_barley(sample_num=500, version=1):
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of the dataset
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     if sample_num not in [500, 1000, 5000]:
         raise ValueError(
@@ -54,11 +53,11 @@ def load_barley(sample_num=500, version=1):
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = f"Barley_s{sample_num}_v{version}"
-    result["varsortability"] = varsortability(data, true_matrix)
+
     return result
 
 
 # barley = load_barley(500, 10)
 # print(barley["var_num"])
-# print(barley["varsortability"])
+
 # print(barley["name"])
