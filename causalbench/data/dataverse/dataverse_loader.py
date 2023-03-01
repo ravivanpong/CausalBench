@@ -2,7 +2,6 @@ import os
 from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
-from causalbench.metrics.varsortability import varsortability
 from causalbench.utils.helper import edges_to_matrix, dataframe_to_edges
 
 
@@ -25,7 +24,6 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     if not isinstance(with_hidden_var, bool):
         raise TypeError(
@@ -103,12 +101,10 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = dataset_name
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # dataverse = load_dataverse(True, True, 5, 5)
 # print(dataverse["var_num"])
 # print(dataverse["sample_num"])
-# print(dataverse["varsortability"])
 # print(dataverse["name"])
