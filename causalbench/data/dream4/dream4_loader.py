@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_dream4(version=1):
@@ -16,7 +15,6 @@ def load_dream4(version=1):
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     if version not in [1, 2, 3, 4]:
         raise ValueError("Version of dream4 must be one of these values: [1, 2, 3, 4]")
@@ -58,11 +56,9 @@ def load_dream4(version=1):
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = f"dream4_{version}"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # dream4 = load_dream4(4)
 # print(dream4["var_num"])
-# print(dream4["varsortability"])
 # print(dream4["name"])
