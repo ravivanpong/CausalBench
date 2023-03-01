@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_sachs():
@@ -16,7 +15,6 @@ def load_sachs():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     sachs_target_bytes = None
@@ -54,11 +52,9 @@ def load_sachs():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "sachs"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # sachs = load_sachs()
 # print(sachs["var_num"])
-# print(sachs["varsortability"])
 # print(sachs["sample_num"])
