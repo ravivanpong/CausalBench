@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_postgres():
@@ -16,7 +15,6 @@ def load_postgres():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     postgres_target_bytes = None
@@ -56,11 +54,9 @@ def load_postgres():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "postgres"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # postgres = load_postgres()
 # print(postgres["var_num"])
-# print(postgres["varsortability"])
 # print(postgres["sample_num"])
