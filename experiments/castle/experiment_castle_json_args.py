@@ -214,8 +214,11 @@ def main():
     else:
         logging.info("result dir created.")
     # read datasets_summary.csv to get varsortability
-    datasets_summary_csv_path = os.path.join(file_dir, "../../datasets_summary.csv")
+    datasets_summary_csv_path = os.path.join(
+        os.path.dirname(__file__), "../../causalbench/data/datasets_summary.csv"
+    )
     datasets_summary_df = pd.read_csv(datasets_summary_csv_path)
+    logging.info("datasets_summary.csv loaded.")
     print(datasets_summary_df.head())
 
     tasks = combine_multiple_lists([algorithms, datasets])
