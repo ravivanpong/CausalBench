@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_real_cites():
@@ -16,7 +15,6 @@ def load_real_cites():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     real_cites_target_bytes = None
@@ -55,11 +53,9 @@ def load_real_cites():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "real_cites"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # real_cites = load_real_cites()
 # print(real_cites["var_num"])
-# print(real_cites["varsortability"])
 # print(real_cites["sample_num"])
