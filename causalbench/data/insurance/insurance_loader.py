@@ -2,7 +2,6 @@ import os
 from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_ins(index=1, sample_num=500, version=1):
@@ -22,7 +21,6 @@ def load_ins(index=1, sample_num=500, version=1):
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of the dataset
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     if sample_num not in [500, 1000, 5000]:
         raise ValueError(
@@ -73,12 +71,10 @@ def load_ins(index=1, sample_num=500, version=1):
         if index != 1
         else f"Insurance_s{sample_num}_v{version}"
     )
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # ins = load_ins(1, 500, 5)
 # print(ins["var_num"])
 # print(ins["sample_num"])
-# print(ins["varsortability"])
 # print(ins["name"])
