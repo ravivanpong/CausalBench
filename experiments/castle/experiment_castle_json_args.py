@@ -230,7 +230,7 @@ def main():
     )
     datasets_summary_df = pd.read_csv(datasets_summary_csv_path)
     logging.info("datasets_summary.csv loaded.")
-
+    # TODO: make this thread safe.
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
         for task in tasks:
