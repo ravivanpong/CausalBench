@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_jdk():
@@ -16,7 +15,6 @@ def load_jdk():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     jdk_target_bytes = None
@@ -58,11 +56,9 @@ def load_jdk():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "jdk"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # jdk = load_jdk()
 # print(jdk["var_num"])
-# print(jdk["varsortability"])
 # print(jdk["sample_num"])
