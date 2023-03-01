@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_real_yacht():
@@ -16,7 +15,6 @@ def load_real_yacht():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     real_yacht_target_bytes = None
@@ -55,11 +53,9 @@ def load_real_yacht():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "real_yacht"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # real_yacht = load_real_yacht()
 # print(real_yacht["var_num"])
-# print(real_yacht["varsortability"])
 # print(real_yacht["sample_num"])
