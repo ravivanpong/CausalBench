@@ -5,6 +5,7 @@ This file provides help functions for conducting experiments.
 
 import logging
 import numpy as np
+import pandas as pd
 import os.path
 from csv import DictWriter
 from causalbench.metrics.varsortability import varsortability
@@ -273,3 +274,15 @@ def edges_to_matrix(edges: list, nodes: list):
     for edge in edges:
         matrix[node_index_map[edge[0]]][node_index_map[edge[1]]] = 1
     return matrix
+
+
+def get_varsortability_from_dataframe(name: str, df: pd.DataFrame):
+    if name in df["name"].values:
+        row_index = np.where(df["name"] == name)
+        return df.loc[row_index[0][0], "varsortability"]
+    else:
+        logging.warning(
+            "Varsortability of %s not found in datasets_summary.csv. Return default value NaN.",
+            name,
+        )
+        return float("nan")

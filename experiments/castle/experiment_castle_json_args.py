@@ -5,12 +5,14 @@ import json
 import argparse
 import concurrent.futures
 import numpy as np
+import pandas as pd
 from castle.metrics import MetricsDAG
 from causalbench.utils.helper import (
     combine_multiple_lists,
     init_func_with_param,
     load_datasest,
     gen_output_file,
+    get_varsortability_from_dataframe,
 )
 
 
@@ -107,12 +109,17 @@ def run(
     dataset_kwargs: dict,
     path_result: str,
     output_file_name: str,
+    datasets_summary: pd.DataFrame,
 ):
     # load data set
     dataset = load_datasest(dataset_name, dataset_kwargs)
     true_causal_matrix = dataset["true_matrix"]
     X = dataset["X"]
     logging.info("%s loaded", dataset["name"])
+    # read varsortability from dataframe
+    varsortability = get_varsortability_from_dataframe(
+        dataset["name"], datasets_summary
+    )
     # init algorithm
     var_num = dataset["var_num"]
     algo = init_algo_from_gcastle(algo_name, var_num, algo_kwargs)
@@ -146,7 +153,7 @@ def run(
             f"{output_file_name}.csv",
             {
                 "dataset_name": dataset["name"],
-                "varsortability": dataset["varsortability"],
+                "varsortability": varsortability,
                 "N_variables": X.shape[1],
                 "N_obs": X.shape[0],
                 "algo_name": algo_name.lower(),
@@ -166,12 +173,13 @@ def run(
 
         dict_result = {
             "dataset_name": dataset["name"],
-            "varsortability": dataset["varsortability"],
+            "varsortability": varsortability,
             "N_variables": X.shape[1],
             "N_obs": X.shape[0],
             "algo_name": algo_name.lower(),
             "algo_param": algo_kwargs,
             "library_name": "gCastle",
+            "Error": "No Error",
             "fdr": mt.metrics["fdr"],
             "tpr": mt.metrics["tpr"],
             "fpr": mt.metrics["fpr"],
@@ -205,6 +213,10 @@ def main():
         logging.info("result dir already exists")
     else:
         logging.info("result dir created.")
+    # read datasets_summary.csv to get varsortability
+    datasets_summary_csv_path = os.path.join(file_dir, "../../datasets_summary.csv")
+    datasets_summary_df = pd.read_csv(datasets_summary_csv_path)
+    print(datasets_summary_df.head())
 
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
@@ -217,6 +229,7 @@ def main():
                 task[1]["kwargs"],
                 path_result,
                 output_file_name,
+                datasets_summary_df,
             )
 
 
