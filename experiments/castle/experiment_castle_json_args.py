@@ -160,6 +160,17 @@ def run(
                 "algo_param": algo_kwargs,
                 "library_name": "gCastle",
                 "Error": err_message,
+                "fdr": "not available",
+                "tpr": "not available",
+                "fpr": "not available",
+                "shd": "not available",
+                "nnz": "not available",
+                "precision": "not available",
+                "recall": "not available",
+                "F1": "not available",
+                "gscore": "not available",
+                "runtime_second": "not available",
+                "experiment_time": time.ctime(),
             },
         )
 
