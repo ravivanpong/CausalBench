@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_networking():
@@ -16,7 +15,6 @@ def load_networking():
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     # read from zip file
     networking_target_bytes = None
@@ -64,11 +62,9 @@ def load_networking():
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = "networking"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # networking =load_networking()
 # print(networking["var_num"])
 # print(networking["sample_num"])
-# print(networking["varsortability"])
