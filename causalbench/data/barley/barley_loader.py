@@ -2,7 +2,6 @@ import os
 from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_barley(sample_num=500, version=1):
