@@ -2,7 +2,6 @@ import os
 from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
-from causalbench.metrics.varsortability import varsortability
 
 
 def load_gene(sample_num=500, version=1):
@@ -21,7 +20,6 @@ def load_gene(sample_num=500, version=1):
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of the dataset
-        - "varsortability": measures how well the variance order reflects the causal order.
     """
     if sample_num not in [500, 1000, 5000]:
         raise ValueError(
@@ -54,12 +52,10 @@ def load_gene(sample_num=500, version=1):
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = f"Gene_s{sample_num}_v{version}"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # gene = load_gene(1000, 1)
 # print(gene["var_num"])
 # print(gene["sample_num"])
-# print(gene["varsortability"])
 # print(gene["name"])
