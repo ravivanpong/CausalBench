@@ -3,7 +3,6 @@ from zipfile import ZipFile
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from causalbench.metrics.varsortability import varsortability
 
 available_dataset_name = [
     "Network1_amp",
@@ -119,12 +118,10 @@ def load_feedback(name="Network1_amp", version=1):
     result["var_num"] = data.shape[1]
     result["sample_num"] = data.shape[0]
     result["name"] = f"sim-{version}.{name}.continuous"
-    result["varsortability"] = varsortability(data, true_matrix)
     return result
 
 
 # feedback = load_feedback(name="Network5_amp", version=3)
 # print(feedback["var_num"])
 # print(feedback["sample_num"])
-# print(feedback["varsortability"])
 # print(feedback["name"])
