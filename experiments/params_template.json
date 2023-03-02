@@ -181,7 +181,7 @@
                         "checkpoint_iter": 5000,
                         "seed": 1,
                         "graph_thres": 0.3,
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": 0
                     }
                 },
@@ -197,7 +197,7 @@
                         "nonlinear": "leaky-relu",
                         "optimizer": "rmsprop",
                         "h_threshold": 1e-07,
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": 0,
                         "use_pns": false,
                         "pns_thresh": 0.75,
@@ -252,7 +252,7 @@
                         "expansions": 10,
                         "bias": true,
                         "model_type": "mlp",
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": null
                     }
                 },
@@ -279,7 +279,7 @@
                         "alpha": 0.99,
                         "init_baseline": -1.0,
                         "random_seed": 0,
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": 0
                     }
                 },
@@ -318,7 +318,7 @@
                         "init_baseline": -1.0,
                         "l1_graph_reg": 0.0,
                         "verbose": false,
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": 0
                     }
                 },
@@ -357,7 +357,7 @@
                         "lr": 0.0001,
                         "alpha": 0.01,
                         "bias": true,
-                        "device_type": "cpu",
+                        "device_type": "gpu",
                         "device_ids": null
                     }
                 }
