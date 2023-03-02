@@ -14,6 +14,7 @@ from causalbench.utils.helper import (
     gen_output_file,
     get_varsortability_from_dataframe,
 )
+from causalbench.data.datasets import read_datasets_summary_as_dataframe
 
 
 def build_full_path(string):
@@ -219,10 +220,7 @@ def main():
     else:
         logging.info("result dir created.")
     # read datasets_summary.csv to get varsortability
-    datasets_summary_csv_path = os.path.join(
-        os.path.dirname(__file__), "../../causalbench/data/datasets_summary.csv"
-    )
-    datasets_summary_df = pd.read_csv(datasets_summary_csv_path)
+    datasets_summary_df = read_datasets_summary_as_dataframe()
     logging.info("datasets_summary.csv loaded.")
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:

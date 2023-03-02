@@ -14,6 +14,7 @@ import os
 import pandas as pd
 import numpy as np
 import time
+import logging
 from causalbench.utils.helper import load_datasest
 
 
@@ -36,6 +37,11 @@ def summarize(dataset="all", file=None, update=None):
     ## If a output file path is given, then use it
 
 
+def read_datasets_summary_as_dataframe():
+    dirname = os.path.dirname(os.path.realpath(__file__))
+    return pd.read_csv(f"{dirname}/datasets_summary.csv")
+
+
 def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFrame):
     dataset = load_datasest(dataset_name, kwargs)
     name, var_num, sample_num, varsortability = (
@@ -44,20 +50,22 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
         dataset["sample_num"],
         dataset["varsortability"],
     )
-    print(f"{name} loaded")
+    logging.info("s% loaded", name)
 
     if name in summary_df["name"].values:
+
         row_index = np.where(summary_df["name"] == name)
         print(row_index[0])
-        print(df.loc[row_index[0][0], "name"])
-        df.loc[row_index[0][0], "var_num"] = var_num
-        df.loc[row_index[0][0], "sample_num"] = sample_num
-        df.loc[row_index[0][0], "varsortability"] = varsortability
-        df.loc[row_index[0][0], "last_updated"] = time.ctime()
+        print(summary_df.loc[row_index[0][0], "name"])
+        summary_df.loc[row_index[0][0], "var_num"] = var_num
+        summary_df.loc[row_index[0][0], "sample_num"] = sample_num
+        summary_df.loc[row_index[0][0], "varsortability"] = varsortability
+        summary_df.loc[row_index[0][0], "last_updated"] = time.ctime()
+        logging.info("s% found. Value updated.")
         return summary_df
 
     else:
-        print(f"{name} not found, about to append")
+        logging.info("s% not found. Append its value in new line.")
         row = {
             "name": name,
             "var_num": var_num,
@@ -72,76 +80,76 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
         )
 
 
-if __name__ == "__main__":
-    dirname = os.path.dirname(os.path.realpath(__file__))
-    df = pd.read_csv(f"{dirname}/datasets_summary.csv")
+# if __name__ == "__main__":
+#     dirname = os.path.dirname(os.path.realpath(__file__))
+#     df = pd.read_csv(f"{dirname}/datasets_summary.csv")
 
-    # with_hidden_var_bools = [True, False]
-    # is_big_bools = [True, False]
-    # max_parent_nums = [2, 3, 4, 5]
-    # versions = [1, 2, 3, 4, 5]
+# with_hidden_var_bools = [True, False]
+# is_big_bools = [True, False]
+# max_parent_nums = [2, 3, 4, 5]
+# versions = [1, 2, 3, 4, 5]
 
-    # for with_hidden_var_bool in with_hidden_var_bools:
-    #     for is_big_bool in is_big_bools:
-    #         for max_parent_num in max_parent_nums:
-    #             for version in versions:
-    #                 kwargs = {
-    #                     "with_hidden_var": with_hidden_var_bool,
-    #                     "is_big": is_big_bool,
-    #                     "max_parent_num": max_parent_num,
-    #                     "version": version,
-    #                 }
-    #                 df = update_dataset_info("dataverse", kwargs, df)
+# for with_hidden_var_bool in with_hidden_var_bools:
+#     for is_big_bool in is_big_bools:
+#         for max_parent_num in max_parent_nums:
+#             for version in versions:
+#                 kwargs = {
+#                     "with_hidden_var": with_hidden_var_bool,
+#                     "is_big": is_big_bool,
+#                     "max_parent_num": max_parent_num,
+#                     "version": version,
+#                 }
+#                 df = update_dataset_info("dataverse", kwargs, df)
 
-    # versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # names = [
-    #     "Network2_amp",
-    #     "Network3_amp",
-    #     "Network4_amp",
-    #     "Network5_amp",
-    #     "Network5_cont",
-    #     "Network5_cont_p3n7",
-    #     "Network5_cont_p7n3",
-    #     "Network6_amp",
-    #     "Network6_cont",
-    #     "Network7_amp",
-    #     "Network7_cont",
-    #     "Network8_amp_amp",
-    #     "Network8_amp_cont",
-    #     "Network8_cont_amp",
-    #     "Network9_amp_amp",
-    #     "Network9_amp_cont",
-    #     "Network9_cont_amp",
-    # ]
-    # for name in names:
-    #     for version in range(1, 61):
-    #         if name == "Network6_amp" and version == 25:
-    #             continue
-    #         df = update_dataset_info(
-    #             "simulated_feedback", {"name": name, "version": version}, df
-    #         )
+# versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# names = [
+#     "Network2_amp",
+#     "Network3_amp",
+#     "Network4_amp",
+#     "Network5_amp",
+#     "Network5_cont",
+#     "Network5_cont_p3n7",
+#     "Network5_cont_p7n3",
+#     "Network6_amp",
+#     "Network6_cont",
+#     "Network7_amp",
+#     "Network7_cont",
+#     "Network8_amp_amp",
+#     "Network8_amp_cont",
+#     "Network8_cont_amp",
+#     "Network9_amp_amp",
+#     "Network9_amp_cont",
+#     "Network9_cont_amp",
+# ]
+# for name in names:
+#     for version in range(1, 61):
+#         if name == "Network6_amp" and version == 25:
+#             continue
+#         df = update_dataset_info(
+#             "simulated_feedback", {"name": name, "version": version}, df
+#         )
 
-    # df = update_dataset_info("sachs", {}, df)
+# df = update_dataset_info("sachs", {}, df)
 
-    # versions = [1, 2, 3, 4]
-    # for version in versions:
-    #     kwargs = {"version": version}
-    #     df = update_dataset_info("dream4", kwargs, df)
+# versions = [1, 2, 3, 4]
+# for version in versions:
+#     kwargs = {"version": version}
+#     df = update_dataset_info("dream4", kwargs, df)
 
-    # sample_nums = [500, 1000, 5000]
-    # versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # for sample_num in sample_nums:
-    #     for version in versions:
-    #         kwargs = {"sample_num": sample_num, "version": version}
-    #         df = update_dataset_info("pigs", kwargs, df)
+# sample_nums = [500, 1000, 5000]
+# versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# for sample_num in sample_nums:
+#     for version in versions:
+#         kwargs = {"sample_num": sample_num, "version": version}
+#         df = update_dataset_info("pigs", kwargs, df)
 
-    # indexs = [1, 3, 5, 10]
-    # sample_nums = [500, 1000, 5000]
-    # versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    # for index in indexs:
-    #     for sample_num in sample_nums:
-    #         for version in versions:
-    #             kwargs = {"index": index, "sample_num": sample_num, "version": version}
-    #             df = update_dataset_info("insurance", kwargs, df)
+# indexs = [1, 3, 5, 10]
+# sample_nums = [500, 1000, 5000]
+# versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# for index in indexs:
+#     for sample_num in sample_nums:
+#         for version in versions:
+#             kwargs = {"index": index, "sample_num": sample_num, "version": version}
+#             df = update_dataset_info("insurance", kwargs, df)
 
-    df.to_csv(f"{dirname}/datasets_summary.csv", index=False)
+# df.to_csv(f"{dirname}/datasets_summary.csv", index=False)
