@@ -107,8 +107,6 @@ def run(
     algo_kwargs: dict,
     dataset_name: str,
     dataset_kwargs: dict,
-    path_result: str,
-    output_file_name: str,
     datasets_summary: pd.DataFrame,
 ):
     # load data set
@@ -148,31 +146,27 @@ def run(
             err_message = err
 
     if not is_success:
-        gen_output_file(
-            path_result,
-            f"{output_file_name}.csv",
-            {
-                "dataset_name": dataset["name"],
-                "varsortability": varsortability,
-                "N_variables": X.shape[1],
-                "N_obs": X.shape[0],
-                "algo_name": algo_name.lower(),
-                "algo_param": algo_kwargs,
-                "library_name": "gCastle",
-                "Error": err_message,
-                "fdr": float("nan"),
-                "tpr": float("nan"),
-                "fpr": float("nan"),
-                "shd": float("nan"),
-                "nnz": float("nan"),
-                "precision": float("nan"),
-                "recall": float("nan"),
-                "F1": float("nan"),
-                "gscore": float("nan"),
-                "runtime_second": float("nan"),
-                "experiment_time": time.ctime(),
-            },
-        )
+        dict_result = {
+            "dataset_name": dataset["name"],
+            "varsortability": varsortability,
+            "N_variables": X.shape[1],
+            "N_obs": X.shape[0],
+            "algo_name": algo_name.lower(),
+            "algo_param": algo_kwargs,
+            "library_name": "gCastle",
+            "Error": err_message,
+            "fdr": float("nan"),
+            "tpr": float("nan"),
+            "fpr": float("nan"),
+            "shd": float("nan"),
+            "nnz": float("nan"),
+            "precision": float("nan"),
+            "recall": float("nan"),
+            "F1": float("nan"),
+            "gscore": float("nan"),
+            "runtime_second": float("nan"),
+            "experiment_time": time.ctime(),
+        }
 
     else:
         finishtime = time.perf_counter()
@@ -203,7 +197,7 @@ def run(
             "runtime_second": runtime,
             "experiment_time": time.ctime(),
         }
-        gen_output_file(path_result, f"{output_file_name}.csv", dict_result)
+    return dict_result
 
 
 def main():
@@ -230,20 +224,22 @@ def main():
     )
     datasets_summary_df = pd.read_csv(datasets_summary_csv_path)
     logging.info("datasets_summary.csv loaded.")
-    # TODO: make this thread safe.
     tasks = combine_multiple_lists([algorithms, datasets])
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        for task in tasks:
+        futures = [
             executor.submit(
                 run,
                 task[0]["name"],
                 task[0]["kwargs"],
                 task[1]["name"],
                 task[1]["kwargs"],
-                path_result,
-                output_file_name,
                 datasets_summary_df,
             )
+            for task in tasks
+        ]
+
+        for future in concurrent.futures.as_completed(futures):
+            gen_output_file(path_result, f"{output_file_name}.csv", future.result())
 
 
 if __name__ == "__main__":

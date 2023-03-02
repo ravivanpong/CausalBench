@@ -1,6 +1,7 @@
 # csv (data) files. Only zip-files are uploaded
 *.csv
 !datasets_summary.csv
+input.json
 
 
 # Local experiment and tests, not related to the main structure
