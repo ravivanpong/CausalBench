@@ -37,8 +37,10 @@ def summarize(dataset="all", file=None, update=None):
     ## If a output file path is given, then use it
 
 
-def read_datasets_summary_as_dataframe():
+def read_datasets_summary_as_dataframe(with_group_and_type=False):
     dirname = os.path.dirname(os.path.realpath(__file__))
+    if with_group_and_type:
+        return pd.read_csv(f"{dirname}/datasets_summary_group_and_type.csv")
     return pd.read_csv(f"{dirname}/datasets_summary.csv")
 
 
