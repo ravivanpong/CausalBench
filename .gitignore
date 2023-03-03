@@ -1,6 +1,7 @@
 # csv (data) files. Only zip-files are uploaded
 *.csv
 !datasets_summary.csv
+!datasets_summary_group_and_type.csv
 input.json
 
 
