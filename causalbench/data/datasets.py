@@ -82,13 +82,22 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
         )
 
 
+def count_arc_num(true_matrix: np.ndarray):
+    unique, counts = np.unique(true_matrix, return_counts=True)
+    result = zip(unique, counts)
+    for r in result:
+        if r[0] == 1:
+            return r[1]
+    return 0
+
+
 # if __name__ == "__main__":
 #     dirname = os.path.dirname(os.path.realpath(__file__))
-#     df = pd.read_csv(f"{dirname}/datasets_summary.csv")
+#     df = pd.read_csv(f"{dirname}/arc_num.csv")
 
-# with_hidden_var_bools = [True, False]
-# is_big_bools = [True, False]
-# max_parent_nums = [2, 3, 4, 5]
+# with_hidden_var_bools = [False]
+# is_big_bools = [True]
+# max_parent_nums = [3]
 # versions = [1, 2, 3, 4, 5]
 
 # for with_hidden_var_bool in with_hidden_var_bools:
@@ -101,10 +110,16 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
 #                     "max_parent_num": max_parent_num,
 #                     "version": version,
 #                 }
-#                 df = update_dataset_info("dataverse", kwargs, df)
+#                 data = load_datasest("dataverse", kwargs)
+#                 arc_num = count_arc_num(data["true_matrix"])
+#                 row = {"group": data["name"], "arc_num": arc_num}
+#                 print(row)
+#                 df = pd.concat([df, pd.DataFrame([row])], axis=0, ignore_index=True)
 
-# versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# df.to_csv(f"{dirname}/arc_num.csv", index=False)
+# print("done")
 # names = [
+#     "Network1_amp",
 #     "Network2_amp",
 #     "Network3_amp",
 #     "Network4_amp",
@@ -123,6 +138,27 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
 #     "Network9_amp_cont",
 #     "Network9_cont_amp",
 # ]
+# index = [1, 3, 5, 10]
+# for i in index:
+#     data = load_datasest(
+#         "hailfinder", {"index": i, "sample_num": 500, "version": 1}
+#     )
+#     arc_num = count_arc_num(data["true_matrix"])
+#     row = {"group": data["name"], "arc_num": arc_num}
+#     print(row)
+#     df = pd.concat([df, pd.DataFrame([row])], axis=0, ignore_index=True)
+# df.to_csv(f"{dirname}/arc_num.csv", index=False)
+# data = load_datasest("dream4", {"version": 4})
+# arc_num = count_arc_num(data["true_matrix"])
+# row = {"group": data["name"], "arc_num": arc_num}
+# print(row)
+# df = pd.concat([df, pd.DataFrame([row])], axis=0, ignore_index=True)
+# df.to_csv(f"{dirname}/arc_num.csv", index=False)
+# print("done")
+
+# versions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
 # for name in names:
 #     for version in range(1, 61):
 #         if name == "Network6_amp" and version == 25:
@@ -153,5 +189,3 @@ def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFram
 #         for version in versions:
 #             kwargs = {"index": index, "sample_num": sample_num, "version": version}
 #             df = update_dataset_info("insurance", kwargs, df)
-
-# df.to_csv(f"{dirname}/datasets_summary.csv", index=False)
