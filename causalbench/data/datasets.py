@@ -44,6 +44,11 @@ def read_datasets_summary_as_dataframe(with_group_and_type=False):
     return pd.read_csv(f"{dirname}/datasets_summary.csv")
 
 
+def read_group_arc_num_as_dataframe():
+    dirname = os.path.dirname(os.path.realpath(__file__))
+    return pd.read_csv(f"{dirname}/arc_num.csv")
+
+
 def update_dataset_info(dataset_name: str, kwargs: dict, summary_df: pd.DataFrame):
     dataset = load_datasest(dataset_name, kwargs)
     name, var_num, sample_num, varsortability = (
