@@ -1,0 +1,9 @@
+cdt~=0.6.0
+future~=0.18.3
+gcastle~=1.0.3
+lingam~=1.7.1
+scikit-learn~=1.1.1
+networkx~=2.8.5
+scipy~=1.8.1
+numpy~=1.22.3
+pandas~=1.4.3
