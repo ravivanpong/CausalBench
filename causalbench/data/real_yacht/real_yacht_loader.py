@@ -54,8 +54,3 @@ def load_real_yacht():
     result["sample_num"] = data.shape[0]
     result["name"] = "real_yacht"
     return result
-
-
-# real_yacht = load_real_yacht()
-# print(real_yacht["var_num"])
-# print(real_yacht["sample_num"])

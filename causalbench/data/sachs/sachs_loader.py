@@ -53,8 +53,3 @@ def load_sachs():
     result["sample_num"] = data.shape[0]
     result["name"] = "sachs"
     return result
-
-
-# sachs = load_sachs()
-# print(sachs["var_num"])
-# print(sachs["sample_num"])

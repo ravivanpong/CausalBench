@@ -55,8 +55,3 @@ def load_postgres():
     result["sample_num"] = data.shape[0]
     result["name"] = "postgres"
     return result
-
-
-# postgres = load_postgres()
-# print(postgres["var_num"])
-# print(postgres["sample_num"])

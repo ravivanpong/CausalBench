@@ -54,8 +54,3 @@ def load_real_auto_mpg():
     result["sample_num"] = data.shape[0]
     result["name"] = "real_auto_mpg"
     return result
-
-
-# real_auto_mpg = load_real_auto_mpg()
-# print(real_auto_mpg["var_num"])
-# print(real_auto_mpg["sample_num"])

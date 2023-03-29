@@ -119,9 +119,3 @@ def load_feedback(name="Network1_amp", version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"sim-{version}.{name}.continuous"
     return result
-
-
-# feedback = load_feedback(name="Network5_amp", version=3)
-# print(feedback["var_num"])
-# print(feedback["sample_num"])
-# print(feedback["name"])

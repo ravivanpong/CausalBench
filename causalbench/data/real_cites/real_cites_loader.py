@@ -56,6 +56,6 @@ def load_real_cites():
     return result
 
 
-# real_cites = load_real_cites()
-# print(real_cites["var_num"])
-# print(real_cites["sample_num"])
+real_cites = load_real_cites()
+print(real_cites["var_num"])
+print(real_cites["sample_num"])

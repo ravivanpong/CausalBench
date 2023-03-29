@@ -41,7 +41,7 @@ def load_munin1(sample_num=500, version=1):
         munin1_data_bytes = zip_archive.read(f"Munin1_s{sample_num}_v{version}.txt")
     # convert bytes into dadaframe
     true_graph_df = pd.read_fwf(BytesIO(munin1_target_bytes), header=None)
-    data_df = pd.read_csv(BytesIO(munin1_data_bytes), header=None, sep="\s+")
+    data_df = pd.read_csv(BytesIO(munin1_data_bytes), header=None, sep=r"\s+")
 
     data = data_df.to_numpy()
     true_matrix = true_graph_df.to_numpy()
