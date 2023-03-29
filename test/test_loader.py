@@ -58,6 +58,36 @@ class TestLoaderMethods(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_datasest(name="dream4", kwargs={"version": 8})
 
+    def test_gene_loader(self):
+        gene = load_datasest(name="gene", kwargs={"sample_num": 500, "version": 5})
+        self.assertEqual(gene["var_num"], 801)
+        self.assertEqual(gene["sample_num"], 500)
+        self.assertEqual(gene["name"], "Gene_s500_v5")
+        with self.assertRaises(ValueError):
+            load_datasest(name="gene", kwargs={"sample_num": 300, "version": 1})
+        with self.assertRaises(ValueError):
+            load_datasest(name="gene", kwargs={"sample_num": 500, "version": 32})
+
+    def test_hailfinder_loader(self):
+        hailfinder = load_datasest(
+            name="hailfinder", kwargs={"index": 3, "sample_num": 500, "version": 5}
+        )
+        self.assertEqual(hailfinder["var_num"], 168)
+        self.assertEqual(hailfinder["sample_num"], 500)
+        self.assertEqual(hailfinder["name"], "HailFinder3_s500_v5")
+        with self.assertRaises(ValueError):
+            load_datasest(
+                name="hailfinder", kwargs={"index": 18, "sample_num": 500, "version": 5}
+            )
+        with self.assertRaises(ValueError):
+            load_datasest(
+                name="hailfinder", kwargs={"index": 3, "sample_num": 300, "version": 5}
+            )
+        with self.assertRaises(ValueError):
+            load_datasest(
+                name="hailfinder", kwargs={"index": 3, "sample_num": 500, "version": 18}
+            )
+
     # def test_isupper(self):
     #     self.assertTrue("FOO".isupper())
     #     self.assertFalse("Foo".isupper())
