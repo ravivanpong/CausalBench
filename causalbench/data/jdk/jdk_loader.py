@@ -57,8 +57,3 @@ def load_jdk():
     result["sample_num"] = data.shape[0]
     result["name"] = "jdk"
     return result
-
-
-# jdk = load_jdk()
-# print(jdk["var_num"])
-# print(jdk["sample_num"])

@@ -53,8 +53,3 @@ def load_munin1(sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"munin1_s{sample_num}_v{version}"
     return result
-
-
-# munin1 = load_munin1(500, 10)
-# print(munin1["var_num"])
-# print(munin1["name"])

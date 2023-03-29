@@ -63,8 +63,3 @@ def load_networking():
     result["sample_num"] = data.shape[0]
     result["name"] = "networking"
     return result
-
-
-# networking = load_networking()
-# print(networking["var_num"])
-# print(networking["sample_num"])

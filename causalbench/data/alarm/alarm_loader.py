@@ -64,8 +64,3 @@ def load_alarm(index=1, sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"Alarm{index}_s{sample_num}_v{version}"
     return result
-
-
-# alarm = load_alarm(10, 5000, 5)
-# print(alarm["var_num"])
-# print(alarm["name"])

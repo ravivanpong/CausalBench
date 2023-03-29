@@ -74,9 +74,3 @@ def load_hailf(index=1, sample_num=500, version=1):
         else f"HailFinder_s{sample_num}_v{version}"
     )
     return result
-
-
-# hailf = load_hailf(3, 500, 5)
-# print(hailf["var_num"])
-# print(hailf["sample_num"])
-# print(hailf["name"])

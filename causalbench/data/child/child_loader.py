@@ -72,9 +72,3 @@ def load_child(index=1, sample_num=500, version=1):
         else f"Child_s{sample_num}_v{version}"
     )
     return result
-
-
-# child = load_child(5, 1000, 5)
-# print(child["var_num"])
-# print(child["sample_num"])
-# print(child["name"])

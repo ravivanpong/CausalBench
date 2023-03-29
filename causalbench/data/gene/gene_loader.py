@@ -41,7 +41,7 @@ def load_gene(sample_num=500, version=1):
         gene_data_bytes = zip_archive.read(f"Gene_s{sample_num}_v{version}.txt")
     # convert bytes into dadaframe
     true_graph_df = pd.read_fwf(BytesIO(gene_target_bytes), header=None)
-    data_df = pd.read_csv(BytesIO(gene_data_bytes), header=None, sep="\s+")
+    data_df = pd.read_csv(BytesIO(gene_data_bytes), header=None, sep=r"\s+")
 
     data = data_df.to_numpy()
     true_matrix = true_graph_df.to_numpy()
@@ -53,9 +53,3 @@ def load_gene(sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"Gene_s{sample_num}_v{version}"
     return result
-
-
-# gene = load_gene(1000, 1)
-# print(gene["var_num"])
-# print(gene["sample_num"])
-# print(gene["name"])

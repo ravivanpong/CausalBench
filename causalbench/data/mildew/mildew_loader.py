@@ -53,8 +53,3 @@ def load_mildew(sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"mildew_s{sample_num}_v{version}"
     return result
-
-
-# mildew = load_mildew(500, 10)
-# print(mildew["var_num"])
-# print(mildew["name"])

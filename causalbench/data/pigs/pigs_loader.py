@@ -53,9 +53,3 @@ def load_pigs(sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"pigs_s{sample_num}_v{version}"
     return result
-
-
-# pigs = load_pigs(500, 10)
-# print(pigs["var_num"])
-# print(pigs["sample_num"])
-# print(pigs["name"])

@@ -53,9 +53,3 @@ def load_link(sample_num=500, version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"link_s{sample_num}_v{version}"
     return result
-
-
-# link = load_link(1000, 1)
-# print(link["var_num"])
-# print(link["sample_num"])
-# print(link["name"])

@@ -57,8 +57,3 @@ def load_dream4(version=1):
     result["sample_num"] = data.shape[0]
     result["name"] = f"dream4_{version}"
     return result
-
-
-# dream4 = load_dream4(4)
-# print(dream4["var_num"])
-# print(dream4["name"])

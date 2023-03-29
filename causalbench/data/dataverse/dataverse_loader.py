@@ -102,9 +102,3 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
     result["sample_num"] = data.shape[0]
     result["name"] = dataset_name
     return result
-
-
-# dataverse = load_dataverse(False, True, 3, 1)
-# print(dataverse["var_num"])
-# print(dataverse["sample_num"])
-# print(dataverse["name"])

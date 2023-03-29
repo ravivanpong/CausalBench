@@ -54,8 +54,3 @@ def load_real_cites():
     result["sample_num"] = data.shape[0]
     result["name"] = "real_cites"
     return result
-
-
-real_cites = load_real_cites()
-print(real_cites["var_num"])
-print(real_cites["sample_num"])

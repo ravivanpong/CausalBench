@@ -72,9 +72,3 @@ def load_ins(index=1, sample_num=500, version=1):
         else f"Insurance_s{sample_num}_v{version}"
     )
     return result
-
-
-# ins = load_ins(1, 500, 5)
-# print(ins["var_num"])
-# print(ins["sample_num"])
-# print(ins["name"])
