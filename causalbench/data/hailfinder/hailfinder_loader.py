@@ -10,7 +10,7 @@ def load_hailf(index=1, sample_num=500, version=1):
     Default is version 1 of original network with 500 samples.
 
     Args:
-        - index (int): number of titled networks. Accepted input are: [1, 3, 5, 10]
+        - index (int): number original networks that are tiled together to get a larger network. Accepted input are: [1, 3, 5, 10]
         - sample_num (int): number of samples. Accepted input are: [500, 1000, 5000]
         - version (int): version number. Accepted input are: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 

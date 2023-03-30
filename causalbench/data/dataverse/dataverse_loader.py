@@ -10,8 +10,8 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
     Load dataverse data set from local zip file.
 
     Args:
-        - with_hidden_var (bool): if dataset with hidden variable.
-        - is_big (bool): if dataset has large amount of variables (more than or equal 100). Only effective when with_hidden_var is False.
+        - with_hidden_var (bool): if True, use dataset with 3 hidden variable.
+        - is_big (bool): if True, use dataset (no hidden variables) with more than or equal to 100 variables. Only effective when with_hidden_var is False.
         - max_parent_num (int): maximum parent num of each node. Only effective when is_big is False. Must be one of these values: [2, 3, 4, 5]
         - version (int): version number of dataset. Must be one of these values: [1, 2, 3, 4, 5].
 

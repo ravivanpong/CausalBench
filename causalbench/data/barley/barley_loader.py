@@ -10,7 +10,7 @@ def load_barley(sample_num=500, version=1):
     Default is version 1 of original network with 500 samples.
 
     Args:
-        - sample_num (int): number of samples. Accepted input are: [500, 1000, 5000]
+        - sample_num (int): number original networks that are tiled together to get a larger network. Accepted input are: [500, 1000, 5000]
         - version (int): version number. Accepted input are: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     Returns:
