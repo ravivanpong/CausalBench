@@ -1,4 +1,4 @@
-Graph datasets in csv format.
+Graph inference datasets in csv format.
 Used in the article Learning Functional Causal Models with Generative Neural Networks. Olivier Goudet - Diviyan Kalainathan - Aris Tritas - Philippe Caillou - Paola Tubaro - Isabelle Guyon - Michèle Sébag
 
 Each file *_numdata.csv contain the data of around 20 variables connected in a graph.
