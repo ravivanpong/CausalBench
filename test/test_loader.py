@@ -23,9 +23,9 @@ class TestLoaderMethods(unittest.TestCase):
         self.assertEqual(child["sample_num"], 1000)
         self.assertEqual(child["name"], "Child5_s1000_v5")
 
-    def test_dataverse_loader(self):
-        dataverse = load_datasest(
-            name="dataverse",
+    def test_inria_gids_loader(self):
+        inria_gids = load_datasest(
+            name="inria_gids",
             kwargs={
                 "with_hidden_var": True,
                 "is_big": False,
@@ -33,12 +33,12 @@ class TestLoaderMethods(unittest.TestCase):
                 "version": 5,
             },
         )
-        self.assertEqual(dataverse["var_num"], 18)
-        self.assertEqual(dataverse["sample_num"], 500)
-        self.assertEqual(dataverse["name"], "G5_v5_confounders_numdata.csv")
+        self.assertEqual(inria_gids["var_num"], 18)
+        self.assertEqual(inria_gids["sample_num"], 500)
+        self.assertEqual(inria_gids["name"], "G5_v5_confounders_numdata.csv")
 
-        dataverse_big = load_datasest(
-            name="dataverse",
+        inria_gids_big = load_datasest(
+            name="inria_gids",
             kwargs={
                 "with_hidden_var": False,
                 "is_big": True,
@@ -46,9 +46,9 @@ class TestLoaderMethods(unittest.TestCase):
                 "version": 1,
             },
         )
-        self.assertEqual(dataverse_big["var_num"], 101)
-        self.assertEqual(dataverse_big["sample_num"], 500)
-        self.assertEqual(dataverse_big["name"], "Big_G3_v1_numdata.csv")
+        self.assertEqual(inria_gids_big["var_num"], 101)
+        self.assertEqual(inria_gids_big["sample_num"], 500)
+        self.assertEqual(inria_gids_big["name"], "Big_G3_v1_numdata.csv")
 
     def test_dream4_loader(self):
         dream4 = load_datasest(name="dream4", kwargs={"version": 4})
