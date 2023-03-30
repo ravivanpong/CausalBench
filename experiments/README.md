@@ -36,7 +36,7 @@ The result file will be created (if not already exists) during the execution of 
 └── example_input.json
 ```
 
-## How to customized the JSON file ?
+## How to customize the JSON file?
 
 - Datasets, algorithms, and output file name in the JSON file can be customized.
 - All supported datasets and algorithms can be found in a template JSON file `params_template.json` in `CausalBench\experiments`
