@@ -1,5 +1,13 @@
 # csv (data) files. Only zip-files are uploaded
-*.csv
+
+result/
+!datasets_summary.csv
+!datasets_summary_group_and_type.csv
+!arc_num.csv
+!feeback_castle4__04Mar.csv
+!dataverse_pc_28feb.csv
+input.json
+
 
 # Local experiment and tests, not related to the main structure
 local/
@@ -136,3 +144,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+# VS Code
+.DS_Store
+.vscode/
