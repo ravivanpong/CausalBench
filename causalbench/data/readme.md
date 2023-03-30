@@ -22,21 +22,17 @@ Data set name
 ## Data description
 A data description file is provided in each data folder.  
 
+## List of Datasets
+| Data set name  | Type           |  Source  | Status   |
+|----------------|----------------|----------|----------|
+| JDK            | Real world     | [Gentzel et al. (2019)](https://drive.google.com/file/d/132ZXzPCQkPF94H83JI9VBxSmlncWnR1M/view?usp=drive_open) | included |
+| Networking     | Real world     | [Gentzel et al. (2019)](https://drive.google.com/file/d/1qgGSzx7uB_9GLtqTITTr2jWxyrtNWftp/view?usp=drive_open) | included |
+| PostgresSQL    | Real world     | [Gentzel et al. (2019)](https://drive.google.com/file/d/1UDksvZyEUe9LBZ5NXRnkWzQXeW2TS77c/view?usp=drive_open) | included |
+| Alarm (3,5,10) | Semi-synthetic | [Tsamardinos et al. (2006)](https://pages.mtu.edu/~lebrown/supplements/mmhc_paper/mmhc_index.html) | included |
+| Alarm (bnlearn)| Semi-synthetic |          |          |
+| DREAM4         | Semi-synthetic |          | included |
+
+
 ## Related works
 The template for data cards and data loaders are inspired from 
 * causal-discovery-toolbox data loader (https://github.com/FenTechSolutions/CausalDiscoveryToolbox)
-
-
-## Currently included datasets
-### Real world
-* JDK
-* Networking
-* PostgresSQL
-
-### Semi-Synthetic
-* ALARM
-* DREAM4
-
-### Synthetic
-* 
-
