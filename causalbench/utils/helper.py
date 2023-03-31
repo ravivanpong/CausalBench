@@ -123,10 +123,10 @@ def load_datasest(name: str, kwargs: dict):
         from causalbench.data.gene.gene_loader import load_gene
 
         return init_func_with_param(load_gene, kwargs)
-    elif name.lower() == "dataverse":
-        from causalbench.data.dataverse.dataverse_loader import load_dataverse
+    elif name.lower() == "inria_gids":
+        from causalbench.data.inria_gids.inria_gids_loader import load_inria_gids
 
-        return init_func_with_param(load_dataverse, kwargs)
+        return init_func_with_param(load_inria_gids, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} with {kwargs} not found. Please check info.txt for supported datasets."

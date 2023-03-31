@@ -126,7 +126,7 @@ def count_arc_num(true_matrix: np.ndarray):
 #                     "max_parent_num": max_parent_num,
 #                     "version": version,
 #                 }
-#                 data = load_datasest("dataverse", kwargs)
+#                 data = load_datasest("inria_gids", kwargs)
 #                 arc_num = count_arc_num(data["true_matrix"])
 #                 row = {"group": data["name"], "arc_num": arc_num}
 #                 print(row)
