@@ -45,3 +45,5 @@ The result file will be created (if not already exists) during the execution of 
 ## Experiment reproduction
 
 Result data of experiments are restored in corresponding CSV files. To reproduce an experiment result, it's necessary to have the same input. You can find all the JSON input files used in the experiment in `CausalBench\experiments\json_files_used_in_experiments`. For example, `input_of_inria_gids_castle4_11Mar.json` is the input file used to generate result data in `CausalBench\evaluation\data_for_evaluation\inria_gids_castle4_11Mar.csv`.
+
+The experiment python file is `CausalBench\experiments\castle\experiment_castle_json_args.py`.
