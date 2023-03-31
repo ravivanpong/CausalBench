@@ -5,9 +5,9 @@ import pandas as pd
 from causalbench.utils.helper import edges_to_matrix, dataframe_to_edges
 
 
-def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version=1):
+def load_inria_gids(with_hidden_var=True, is_big=False, max_parent_num=2, version=1):
     """_summary_
-    Load dataverse data set from local zip file.
+    Load inria_gids data set from local zip file.
 
     Args:
         - with_hidden_var (bool): if True, use dataset with 3 hidden variable.
@@ -18,9 +18,9 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
     Returns:
         result: dictionary with properties of:
         - "with_hidden_var": if dataset with hidden variable
-        - "true_matrix": true graph of dataverse data set in form of Numpy NDArray
+        - "true_matrix": true graph of inria_gids data set in form of Numpy NDArray
         - "skeleton": skeleton of the graph (including spurious links due to common hidden cause) in form of Numpy NDArray. return None if no hidden variables.
-        - "X": dataverse dataset in form of Numpy NDArray.
+        - "X": inria_gids dataset in form of Numpy NDArray.
         - "var_num": number of variables
         - "sample_num": number of samples
         - "name": name of data set
@@ -42,45 +42,45 @@ def load_dataverse(with_hidden_var=True, is_big=False, max_parent_num=2, version
 
     # read from zip file
     if with_hidden_var:
-        dataverse_skeleton_bytes = None
-    dataverse_target_bytes = None
-    dataverse_data_bytes = None
+        inria_gids_skeleton_bytes = None
+    inria_gids_target_bytes = None
+    inria_gids_data_bytes = None
     dirname = os.path.dirname(os.path.realpath(__file__))
-    with ZipFile(f"{dirname}/dataverse.zip") as zip_archive:
+    with ZipFile(f"{dirname}/inria_gids.zip") as zip_archive:
         if with_hidden_var:
-            dataverse_target_bytes = zip_archive.read(
+            inria_gids_target_bytes = zip_archive.read(
                 f"graph/graph_with_hidden_variables/G{max_parent_num}_v{version}_confounders_target.csv"
             )
-            dataverse_skeleton_bytes = zip_archive.read(
+            inria_gids_skeleton_bytes = zip_archive.read(
                 f"graph/graph_with_hidden_variables/G{max_parent_num}_v{version}_confounders_skeleton.csv"
             )
-            dataverse_data_bytes = zip_archive.read(
+            inria_gids_data_bytes = zip_archive.read(
                 f"graph/graph_with_hidden_variables/G{max_parent_num}_v{version}_confounders_numdata.csv"
             )
             dataset_name = f"G{max_parent_num}_v{version}_confounders_numdata.csv"
         else:
             if is_big:
-                dataverse_target_bytes = zip_archive.read(
+                inria_gids_target_bytes = zip_archive.read(
                     f"graph/graph_without_hidden_variables/Big_G3_v{version}_target.csv"
                 )
-                dataverse_data_bytes = zip_archive.read(
+                inria_gids_data_bytes = zip_archive.read(
                     f"graph/graph_without_hidden_variables/Big_G3_v{version}_numdata.csv"
                 )
                 dataset_name = f"Big_G3_v{version}_numdata.csv"
             else:
-                dataverse_target_bytes = zip_archive.read(
+                inria_gids_target_bytes = zip_archive.read(
                     f"graph/graph_without_hidden_variables/G{max_parent_num}_v{version}_target.csv"
                 )
-                dataverse_data_bytes = zip_archive.read(
+                inria_gids_data_bytes = zip_archive.read(
                     f"graph/graph_without_hidden_variables/G{max_parent_num}_v{version}_numdata.csv"
                 )
                 dataset_name = f"G{max_parent_num}_v{version}_numdata.csv"
 
     # convert bytes into dadaframe
-    true_graph_df = pd.read_csv(BytesIO(dataverse_target_bytes))
+    true_graph_df = pd.read_csv(BytesIO(inria_gids_target_bytes))
     if with_hidden_var:
-        skeleton_df = pd.read_csv(BytesIO(dataverse_skeleton_bytes))
-    data_df = pd.read_csv(BytesIO(dataverse_data_bytes))
+        skeleton_df = pd.read_csv(BytesIO(inria_gids_skeleton_bytes))
+    data_df = pd.read_csv(BytesIO(inria_gids_data_bytes))
 
     # build true graph matrix
     nodes = list(data_df.columns)
