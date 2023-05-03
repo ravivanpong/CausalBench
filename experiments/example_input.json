@@ -1,0 +1,68 @@
+{
+    "datasets": [
+        {
+            "name": "sachs",
+            "kwargs": {}
+        },
+        {
+            "name": "simulated_feedback",
+            "kwargs": {
+                "name": "Network1_amp",
+                "version": 1
+            }
+        },
+        {
+            "name": "child",
+            "kwargs": {
+                "index": 1,
+                "sample_num": 500,
+                "version": 1
+            }
+        }
+    ],
+    "algorithms": [
+        {
+            "gcastle": [
+                {
+                    "name": "pc",
+                    "kwargs": {
+                        "variant": "original",
+                        "alpha": 0.05,
+                        "ci_test": "fisherz",
+                        "priori_knowledge": null
+                    }
+                },
+                {
+                    "name": "ges",
+                    "kwargs": {
+                        "criterion": "bic",
+                        "method": "scatter",
+                        "k": 0.001,
+                        "N": 10
+                    }
+                },
+                {
+                    "name": "icalingam",
+                    "kwargs": {
+                        "random_state": null,
+                        "max_iter": 1000,
+                        "thresh": 0.3
+                    }
+                },
+                {
+                    "name": "directlingam",
+                    "kwargs": {
+                        "prior_knowledge": null,
+                        "measure": "pwling",
+                        "thresh": 0.3
+                    }
+                }
+            ]
+        },
+        {
+            "lingam": [
+            ]
+        }
+    ],
+    "OUTPUT_FILE_NAME": "output_file_name"
+}
