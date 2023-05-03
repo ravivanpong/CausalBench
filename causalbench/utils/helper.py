@@ -6,6 +6,7 @@ This file provides help functions for conducting experiments.
 import logging
 import numpy as np
 import pandas as pd
+import json
 import os.path
 from csv import DictWriter
 from causalbench.metrics.varsortability import varsortability
@@ -286,3 +287,38 @@ def get_varsortability_from_dataframe(name: str, df: pd.DataFrame):
             name,
         )
         return float("nan")
+
+def gen_json_for_simulatedFeedbackDataset():
+    
+    datasets = {"datasets": []}
+    dataset_uniq_name = "simulated_feedback"
+    names = [
+        "Network1_amp",
+        "Network2_amp",
+        "Network3_amp",
+        "Network4_amp",
+        "Network5_amp",
+        "Network5_cont",
+        "Network5_cont_p3n7",
+        "Network5_cont_p7n3",
+        "Network6_amp",
+        "Network6_cont",
+        "Network7_amp",
+        "Network7_cont",
+        "Network8_amp_amp",
+        "Network8_amp_cont",
+        "Network8_cont_amp",
+        "Network9_amp_amp",
+        "Network9_amp_cont",
+        "Network9_cont_amp",
+    ]
+    for name in names:
+        for version in range(1, 61):
+            if name == "Network6_amp" and version == 25:
+                continue
+            kwargs = {"name": name, "version": version}
+            dataset = {"name": dataset_uniq_name, "kwargs": kwargs}
+            datasets["datasets"].append(dataset)
+    json_object = json.dumps(datasets, indent=4)
+    print(json_object)
+    
