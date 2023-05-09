@@ -1,4 +1,5 @@
 # csv (data) files. Only zip-files are uploaded
+data/*.csv
 
 result/
 !datasets_summary.csv
