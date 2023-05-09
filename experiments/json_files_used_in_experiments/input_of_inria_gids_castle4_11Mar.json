@@ -1,0 +1,409 @@
+{
+    "datasets": [
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": true,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 2,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 3,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 4,
+                "version": 5
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 1
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 2
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 3
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 4
+            }
+        },
+        {
+            "name": "inria_gids",
+            "kwargs": {
+                "with_hidden_var": false,
+                "is_big": false,
+                "max_parent_num": 5,
+                "version": 5
+            }
+        }
+    ],
+    "algorithms": [
+        {
+            "gcastle": [
+                {
+                    "name": "pc",
+                    "kwargs": {
+                        "variant": "original",
+                        "alpha": 0.05,
+                        "ci_test": "fisherz",
+                        "priori_knowledge": null
+                    }
+                },
+                {
+                    "name": "ges",
+                    "kwargs": {
+                        "criterion": "bic",
+                        "method": "scatter",
+                        "k": 0.001,
+                        "N": 10
+                    }
+                },
+                {
+                    "name": "icalingam",
+                    "kwargs": {
+                        "random_state": null,
+                        "max_iter": 1000,
+                        "thresh": 0.3
+                    }
+                },
+                {
+                    "name": "directlingam",
+                    "kwargs": {
+                        "prior_knowledge": null,
+                        "measure": "pwling",
+                        "thresh": 0.3
+                    }
+                }
+            ]
+        },
+        {
+            "lingam": [
+            ]
+        }
+    ],
+    "OUTPUT_FILE_NAME": "inria_gids_castle4_11Mar"
+}

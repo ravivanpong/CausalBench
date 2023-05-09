@@ -116,7 +116,7 @@
             }
         },
         {
-            "name": "dataverse",
+            "name": "inria_gids",
             "kwargs":{
                 "with_hidden_var": true,
                 "is_big":false,

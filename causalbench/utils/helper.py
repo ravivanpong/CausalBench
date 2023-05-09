@@ -6,6 +6,7 @@ This file provides help functions for conducting experiments.
 import logging
 import numpy as np
 import pandas as pd
+import json
 import os.path
 from csv import DictWriter
 from causalbench.metrics.varsortability import varsortability
@@ -123,10 +124,10 @@ def load_datasest(name: str, kwargs: dict):
         from causalbench.data.gene.gene_loader import load_gene
 
         return init_func_with_param(load_gene, kwargs)
-    elif name.lower() == "dataverse":
-        from causalbench.data.dataverse.dataverse_loader import load_dataverse
+    elif name.lower() == "inria_gids":
+        from causalbench.data.inria_gids.inria_gids_loader import load_inria_gids
 
-        return init_func_with_param(load_dataverse, kwargs)
+        return init_func_with_param(load_inria_gids, kwargs)
     else:
         raise ValueError(
             f"Data set: {name} with {kwargs} not found. Please check info.txt for supported datasets."
@@ -286,3 +287,38 @@ def get_varsortability_from_dataframe(name: str, df: pd.DataFrame):
             name,
         )
         return float("nan")
+
+def gen_json_for_simulatedFeedbackDataset():
+    
+    datasets = {"datasets": []}
+    dataset_uniq_name = "simulated_feedback"
+    names = [
+        "Network1_amp",
+        "Network2_amp",
+        "Network3_amp",
+        "Network4_amp",
+        "Network5_amp",
+        "Network5_cont",
+        "Network5_cont_p3n7",
+        "Network5_cont_p7n3",
+        "Network6_amp",
+        "Network6_cont",
+        "Network7_amp",
+        "Network7_cont",
+        "Network8_amp_amp",
+        "Network8_amp_cont",
+        "Network8_cont_amp",
+        "Network9_amp_amp",
+        "Network9_amp_cont",
+        "Network9_cont_amp",
+    ]
+    for name in names:
+        for version in range(1, 61):
+            if name == "Network6_amp" and version == 25:
+                continue
+            kwargs = {"name": name, "version": version}
+            dataset = {"name": dataset_uniq_name, "kwargs": kwargs}
+            datasets["datasets"].append(dataset)
+    json_object = json.dumps(datasets, indent=4)
+    print(json_object)
+    
