@@ -7,7 +7,7 @@ setuptools.setup(
     description="causalbench python module",
     url="https://github.com/ravivanpong/CausalBench",
     author="Ravivanpong",
-    author_email="upurw@student.kit.edu",
+    author_email="p.vohr.ravivanpong@mail.de",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
